@@ -69,3 +69,29 @@ julia> result.scores
  0.4960042804521248
 
 ```
+
+### Evaluating Fuzzy Numbers:
+
+```julia
+julia> f = Trapezodial(1, 2, 3, 20)
+Trapezodial(1, 2, 3, 20)
+
+julia> observe(f, 0)
+0.0
+
+julia> observe(f, 2)
+1.0
+
+julia> observe(f, 3)
+1.0
+
+julia> observe(f, 4)
+0.9411764705882353
+
+julia> observe(f, 6)
+0.8235294117647058
+
+julia> observe(f, 14)
+0.35294117647058826
+```
+

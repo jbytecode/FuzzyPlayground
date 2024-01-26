@@ -75,5 +75,13 @@
         @test isapprox(euclidean(t1), 2.8867513459481287, atol = eps)
     end
 
+    @testset "Observe" begin 
+        f = Triangular(1, 2, 5)
+
+        @test observe(f, 0) == 0
+        @test observe(f, 1.5) == 0.5
+        @test observe(f, 4) == 0.3333333333333333
+    end 
+
 
 end

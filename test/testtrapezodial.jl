@@ -88,4 +88,14 @@
         @test isapprox(euclidean(t1), 2.5, atol = eps)
     end
 
+    @testset "Observe" begin 
+        f = Trapezodial(1, 2, 5, 11)
+
+        @test observe(f, 0) == 0
+        @test observe(f, 3) == 1
+        @test observe(f, 4) == 1
+        @test observe(f, 6) == 0.8333333333333334
+        @test observe(f, 23412) == 0
+    end 
+
 end

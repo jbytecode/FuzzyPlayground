@@ -100,3 +100,16 @@ function euclidean(t1::Triangular)::Float64
     origin = Triangular(0.0, 0.0, 0.0)
     return euclidean(origin, t1)
 end
+
+function observe(t::Triangular, x::XType)::Float64 where XType <: Real 
+    if x < t.a 
+        return zero(eltype(x))
+    elseif t.a <= x < t.b 
+        return (x - t.a) / (t.b - t.a)
+    elseif t.b <= x < t.c 
+        return (t.c - x) / (t.c - t.b)
+    else
+        return zero(eltype(x))
+    end 
+end 
+

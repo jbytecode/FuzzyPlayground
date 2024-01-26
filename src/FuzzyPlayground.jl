@@ -2,6 +2,7 @@ module FuzzyPlayground
 
 export FuzzyNumber, Triangular, Trapezodial
 export euclidean
+export observe 
 export fuzzytopsis
 
 
