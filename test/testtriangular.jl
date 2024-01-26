@@ -1,5 +1,11 @@
 @testset "Triangular Fuzzy Numbers" begin
 
+    @testset "Constructor" begin 
+        
+        @test_throws AssertionError Triangular(5, 4, 3)
+
+    end 
+
     @testset "Equality of triangulars" begin
         @test Triangular(1, 2, 3) == Triangular(1, 2, 3)
     end
@@ -82,6 +88,33 @@
         @test observe(f, 1.5) == 0.5
         @test observe(f, 4) == 0.3333333333333333
     end 
+
+    @testset "First" begin 
+        @test Triangular(1, 2, 3) |> first == 1
+        @test Triangular(2, 3, 4) |> first == 2
+    end 
+
+    @testset "Last" begin 
+        @test Triangular(1, 2, 3) |> last == 3
+        @test Triangular(2, 3, 4) |> last == 4
+    end 
+
+    @testset "Zero" begin 
+        @test zero(Triangular) == Triangular(0, 0, 0)
+    end 
+
+    @testset "One" begin 
+        @test one(Triangular) == Triangular(1, 1, 1)
+    end 
+
+    @testset "Zeros" begin 
+        v = zeros(Triangular, 10)
+
+        @test v isa Vector{Triangular}
+        @test length(v) == 10
+        @test v[1] == zero(Triangular)
+    end 
+
 
 
 end

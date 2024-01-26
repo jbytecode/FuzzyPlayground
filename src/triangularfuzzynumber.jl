@@ -1,7 +1,11 @@
 mutable struct Triangular <: FuzzyNumber
-    a::Any
-    b::Any
-    c::Any
+    a::Real
+    b::Real
+    c::Real
+    function Triangular(a, b, c)
+        @assert a <= b <= c 
+        new(a, b, c)
+    end
 end
 
 function Base.:+(t1::Triangular, t2::Triangular)::Triangular
@@ -69,6 +73,13 @@ function Base.zero(::Type{Triangular})::Triangular
     return Triangular(0.0, 0.0, 0.0)
 end
 
+function Base.one(::Type{Triangular})::Triangular
+    return Triangular(1.0, 1.0, 1.0)
+end
+
+function Base.zeros(::Type{Triangular}, n::Int64)::Vector{Triangular}
+    return [zero(Triangular) for i in 1:n]
+end 
 
 function Base.iterate(t::Triangular, state = 1)
     if state == 1

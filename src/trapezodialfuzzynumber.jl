@@ -1,8 +1,12 @@
 mutable struct Trapezodial <: FuzzyNumber
-    a::Any
-    b::Any
-    c::Any
-    d::Any
+    a::Real
+    b::Real
+    c::Real
+    d::Real
+    function Trapezodial(a, b, c, d)
+        @assert a <= b <= c <= d
+        new(a, b, c, d)
+    end
 end
 
 function Base.:+(t1::Trapezodial, t2::Trapezodial)::Trapezodial
@@ -75,6 +79,14 @@ function Base.zero(::Type{Trapezodial})::Trapezodial
     return Trapezodial(0.0, 0.0, 0.0, 0.0)
 end
 
+function Base.one(::Type{Trapezodial})::Trapezodial
+    return Trapezodial(1.0, 1.0, 1.0, 1.0)
+end
+
+function Base.zeros(::Type{Trapezodial}, n::Int64)::Vector{Trapezodial}
+    return [zero(Trapezodial) for i in 1:n]
+end 
+
 
 function Base.iterate(t::Trapezodial, state = 1)
     if state == 1
@@ -123,3 +135,5 @@ function observe(t::Trapezodial, x::XType)::Float64 where XType <: Real
         return zero(eltype(x))
     end 
 end 
+
+
