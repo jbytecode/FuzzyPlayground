@@ -9,26 +9,26 @@
 
     end
 
-    @testset "Sum of two Trapezodial" begin 
+    @testset "Sum of two Trapezodial" begin
 
         t1 = Trapezodial(1, 2, 3, 4)
         t2 = Trapezodial(2, 5, 7, 9)
 
-        result = t1 + t2 
+        result = t1 + t2
 
         @test result == Trapezodial(3, 7, 10, 13)
-    end 
+    end
 
-    @testset "Diff of Trapezodial" begin 
+    @testset "Diff of Trapezodial" begin
 
         t1 = Trapezodial(1, 2, 3, 4)
         t2 = Trapezodial(2, 5, 7, 9)
 
-        result = t2 - t1 
+        result = t2 - t1
 
         @test result == Trapezodial(-2, 2, 5, 8)
 
-    end 
+    end
 
 
     @testset "Multiply by scalar" begin
@@ -66,26 +66,26 @@
         resultother = t2 * t1
 
         @test result == Trapezodial(6, 32, 54, 90)
-        @test result == resultother 
+        @test result == resultother
     end
 
-    @testset "Division of two Trapezodial" begin 
+    @testset "Division of two Trapezodial" begin
 
         t1 = Trapezodial(1, 4, 6, 9)
         t2 = Trapezodial(6, 8, 9, 10)
 
         result = t1 * t2
-        
-        @test result == Trapezodial(6, 32, 54, 90)
-    end 
 
-    @testset "Euclidean distance" begin 
+        @test result == Trapezodial(6, 32, 54, 90)
+    end
+
+    @testset "Euclidean distance" begin
         eps = 0.00001
 
         t1 = Trapezodial(0, 0, 3, 4)
 
         @test euclidean(t1, t1) == 0.0
         @test isapprox(euclidean(t1), 2.5, atol = eps)
-    end 
+    end
 
-end 
+end

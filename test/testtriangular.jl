@@ -57,23 +57,23 @@
         @test result == Triangular(6, 32, 54)
     end
 
-    @testset "Division of two triangular" begin 
+    @testset "Division of two triangular" begin
         t1 = Triangular(1, 4, 7)
         t2 = Triangular(6, 8, 9)
 
-        result = t1 / t2 
+        result = t1 / t2
 
-        @test result == Triangular(1/9, 4/8, 7/6)
-    end 
+        @test result == Triangular(1 / 9, 4 / 8, 7 / 6)
+    end
 
-    @testset "Euclidean distance" begin 
+    @testset "Euclidean distance" begin
         eps = 0.00001
 
         t1 = Triangular(0, 3, 4)
 
         @test euclidean(t1, t1) == 0.0
         @test isapprox(euclidean(t1), 2.8867513459481287, atol = eps)
-    end 
+    end
 
 
 end

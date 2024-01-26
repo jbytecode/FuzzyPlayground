@@ -1,27 +1,17 @@
 mutable struct Trapezodial <: FuzzyNumber
-    a
-    b
-    c
-    d
+    a::Any
+    b::Any
+    c::Any
+    d::Any
 end
 
 function Base.:+(t1::Trapezodial, t2::Trapezodial)::Trapezodial
-    return Trapezodial(
-        t1.a + t2.a,
-        t1.b + t2.b,
-        t1.c + t2.c,
-        t1.d + t2.d
-    )
+    return Trapezodial(t1.a + t2.a, t1.b + t2.b, t1.c + t2.c, t1.d + t2.d)
 end
 
 # (a1 − d2 , b1 − c2 , c1 − b2 , d1 − a2 )
 function Base.:-(t1::Trapezodial, t2::Trapezodial)::Trapezodial
-    return Trapezodial(
-        t1.a - t2.d,
-        t1.b - t2.c,
-        t1.c - t2.b,
-        t1.d - t2.a
-    )
+    return Trapezodial(t1.a - t2.d, t1.b - t2.c, t1.c - t2.b, t1.d - t2.a)
 end
 
 
@@ -35,53 +25,35 @@ function Base.isequal(t1::Trapezodial, t2::Trapezodial)::Bool
 end
 
 
-function Base.:*(t1::Trapezodial, alpha::T) where T <: Real
-    return Trapezodial(
-        alpha * t1.a,
-        alpha * t1.b,
-        alpha * t1.c,
-        alpha * t1.d 
-    )
-end 
+function Base.:*(t1::Trapezodial, alpha::T) where {T<:Real}
+    return Trapezodial(alpha * t1.a, alpha * t1.b, alpha * t1.c, alpha * t1.d)
+end
 
-function Base.:*(alpha::T, t1::Trapezodial) where T <: Real
+function Base.:*(alpha::T, t1::Trapezodial) where {T<:Real}
     return t1 * alpha
-end 
+end
 
 function Base.inv(t::Trapezodial)::Trapezodial
-    return Trapezodial(
-        inv(t.d),
-        inv(t.c), 
-        inv(t.b),
-        inv(t.a)
-    )
-end 
+    return Trapezodial(inv(t.d), inv(t.c), inv(t.b), inv(t.a))
+end
 
 
 function Base.:*(t1::Trapezodial, t2::Trapezodial)::Trapezodial
-    return Trapezodial(
-        t1.a * t2.a, 
-        t1.b * t2.b, 
-        t1.c * t2.c,
-        t1.d * t2.d 
-    )
-end 
+    return Trapezodial(t1.a * t2.a, t1.b * t2.b, t1.c * t2.c, t1.d * t2.d)
+end
 
 
 function Base.:/(t1::Trapezodial, t2::Trapezodial)::Trapezodial
-    return Trapezodial(
-        t1.a / t2.d, 
-        t1.b / t2.c, 
-        t1.c / t2.b, 
-        t1.d / t2.a
+    return Trapezodial(t1.a / t2.d, t1.b / t2.c, t1.c / t2.b, t1.d / t2.a)
+end
+
+function euclidean(t1::Trapezodial, t2::Trapezodial)::Float64
+    return sqrt(
+        (1 / 4) * ((t1.a - t2.a)^2 + (t1.b - t2.b)^2 + (t1.c - t2.c)^2 + (t1.d - t2.d)^2),
     )
-end 
+end
 
-function euclidean(t1::Trapezodial, t2::Trapezodial)::Float64 
-    return sqrt((1/4) * ((t1.a - t2.a)^2 + (t1.b - t2.b)^2 + (t1.c - t2.c)^2 + (t1.d - t2.d)^2))
-end 
-
-function euclidean(t1::Trapezodial)::Float64 
+function euclidean(t1::Trapezodial)::Float64
     origin = Trapezodial(0.0, 0.0, 0.0, 0.0)
     return euclidean(origin, t1)
-end 
+end

@@ -1,6 +1,1 @@
-abstract type FuzzyNumber end 
-
-
-
-
-
+abstract type FuzzyNumber end
