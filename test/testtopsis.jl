@@ -37,6 +37,20 @@
 			end
 		end
 
+        expected_weighted_norm = [
+            Triangular(1.287,3.600,9.000) Triangular(3.890,8.000,9.000) Triangular(0.715,4.568,9.000) Triangular(0.429,2.856,7.000);
+            Triangular(0.999,2.574,5.400) Triangular(2.780,7.112,9.000) Triangular(0.715,3.432,6.426) Triangular(0.143,1.716,4.998)
+        ]
+
+        for i in 1:n
+			for j in 1:p
+				@test isapprox(
+					result.weighted_normalized_decmat[i, j],
+					expected_weighted_norm[i, j],
+					atol = eps,
+				)
+			end
+		end
 
 	end
 end

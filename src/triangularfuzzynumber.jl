@@ -81,6 +81,13 @@ function Base.isapprox(t1::Triangular, t2::Triangular; atol::Float64)
 			&& isapprox(t1.c, t2.c, atol = atol))
 end
 
+function Base.length(::Triangular)::Int64 
+    return 1
+end 
+
+Base.broadcastable(t::Triangular) = Ref(t)
+
+
 function euclidean(t1::Triangular, t2::Triangular)::Float64
 	return sqrt((1 / 3) * ((t1.a - t2.a)^2 + (t1.b - t2.b)^2 + (t1.c - t2.c)^2))
 end

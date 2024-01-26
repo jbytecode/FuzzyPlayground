@@ -9,6 +9,7 @@ function fuzzytopsis(decmat, w, fns)::FuzzyTopsisResult
 	n, p = size(decmat)
 
 	normalized_mat = similar(decmat)
+    weightednormalized_mat = similar(decmat)
 
 	for j in 1:p
 		if fns[j] == maximum
@@ -24,11 +25,15 @@ function fuzzytopsis(decmat, w, fns)::FuzzyTopsisResult
 		end
 	end
 
+    for j in 1:p
+        weightednormalized_mat[:, j] = w[j] .* normalized_mat[:, j]
+    end 
+
 
 	result = FuzzyTopsisResult(
 		decmat,
 		normalized_mat,
-		decmat,
+		weightednormalized_mat,
 	)
 
 	return result
