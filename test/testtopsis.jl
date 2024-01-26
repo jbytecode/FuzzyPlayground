@@ -52,5 +52,15 @@
 			end
 		end
 
+        display(result.bestideal)
+
+        display(result.worstideal)
+
+        display(result.sminus)
+
+        display(result.splus)
+
+        display(result.scores)
+
 	end
 end

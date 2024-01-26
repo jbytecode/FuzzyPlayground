@@ -87,6 +87,22 @@ end
 
 Base.broadcastable(t::Triangular) = Ref(t)
 
+function Base.zero(::Type{Triangular})::Triangular
+    return Triangular(0.0, 0.0, 0.0)
+end 
+
+
+function Base.iterate(t::Triangular, state = 1)
+	if state == 1
+		(t.a, state + 1)
+	elseif state == 2
+		(t.b, state + 1)
+    elseif state == 3
+        (t.c, state + 1)
+    else 
+		nothing
+	end
+end
 
 function euclidean(t1::Triangular, t2::Triangular)::Float64
 	return sqrt((1 / 3) * ((t1.a - t2.a)^2 + (t1.b - t2.b)^2 + (t1.c - t2.c)^2))
