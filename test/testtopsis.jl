@@ -52,6 +52,9 @@
             end
         end
 
+        @test isapprox(result.scores[1], 0.5257780416111583, atol = eps)
+        @test isapprox(result.scores[2], 0.4960042804521248, atol = eps)
+
         display(result.bestideal)
 
         display(result.worstideal)

@@ -22,11 +22,11 @@ function fuzzytopsis(
 
     for j = 1:p
         if fns[j] == maximum
-            cvalues = map(trg -> trg.c, decmat[:, j])
+            cvalues = map(last, decmat[:, j])
             colmax = maximum(cvalues)
             normalized_mat[:, j] = decmat[:, j] ./ colmax
         elseif fns[j] == minimum
-            avalues = map(trg -> trg.a, decmat[:, j])
+            avalues = map(first, decmat[:, j])
             colmin = minimum(avalues)
             normalized_mat[:, j] = colmin ./ decmat[:, j]
         else
@@ -42,8 +42,8 @@ function fuzzytopsis(
     worstideal = zeros(eltype(decmat), p)
 
     for j = 1:p
-        maxc = maximum(map(x -> first(x), weightednormalized_mat[:, j]))
-        mina = minimum(map(x -> last(x), weightednormalized_mat[:, j]))
+        maxc = maximum(map(x -> last(x), weightednormalized_mat[:, j]))
+        mina = minimum(map(x -> first(x), weightednormalized_mat[:, j]))
         if fns[j] == maximum
             bestideal[j] = Triangular(maxc, maxc, maxc)
             worstideal[j] = Triangular(mina, mina, mina)
@@ -57,16 +57,13 @@ function fuzzytopsis(
 
     distance_to_ideal = zeros(n)
     distance_to_worst = zeros(n)
+    scores = zeros(Float64, n)
+
     for i = 1:n
         distance_to_ideal[i] = euclidean.(weightednormalized_mat[i, :], bestideal) |> sum
         distance_to_worst[i] = euclidean.(weightednormalized_mat[i, :], worstideal) |> sum
-    end
-
-    scores = zeros(Float64, n)
-    for i = 1:n
         scores[i] = distance_to_worst[i] / (distance_to_worst[i] + distance_to_ideal[i])
     end
-
 
     result = FuzzyTopsisResult(
         decmat,
