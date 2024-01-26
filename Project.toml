@@ -1,0 +1,4 @@
+name = "FuzzyPlayground"
+uuid = "d856f160-60bf-4be1-91ce-dcd3323e6bc2"
+authors = ["jbytecode <mhsatman@gmail.com>"]
+version = "0.1.0"
