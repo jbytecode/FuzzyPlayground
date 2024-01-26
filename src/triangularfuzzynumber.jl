@@ -82,6 +82,15 @@ function Base.iterate(t::Triangular, state = 1)
     end
 end
 
+function Base.first(t::Triangular)
+    return t.a 
+end 
+
+function Base.last(t::Triangular)
+    return t.c
+end 
+
+
 function euclidean(t1::Triangular, t2::Triangular)::Float64
     return sqrt((1 / 3) * ((t1.a - t2.a)^2 + (t1.b - t2.b)^2 + (t1.c - t2.c)^2))
 end

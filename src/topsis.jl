@@ -10,10 +10,10 @@ mutable struct FuzzyTopsisResult
 end
 
 function fuzzytopsis(
-    decmat::Matrix{Triangular},
-    w::Vector{Triangular},
+    decmat::Matrix{FuzzyType},
+    w::Vector{FuzzyType},
     fns,
-)::FuzzyTopsisResult
+)::FuzzyTopsisResult where FuzzyType <: FuzzyNumber
 
     n, p = size(decmat)
 
@@ -42,8 +42,8 @@ function fuzzytopsis(
     worstideal = zeros(eltype(decmat), p)
 
     for j = 1:p
-        maxc = maximum(map(x -> x.c, weightednormalized_mat[:, j]))
-        mina = minimum(map(x -> x.a, weightednormalized_mat[:, j]))
+        maxc = maximum(map(x -> first(x), weightednormalized_mat[:, j]))
+        mina = minimum(map(x -> last(x), weightednormalized_mat[:, j]))
         if fns[j] == maximum
             bestideal[j] = Triangular(maxc, maxc, maxc)
             worstideal[j] = Triangular(mina, mina, mina)
