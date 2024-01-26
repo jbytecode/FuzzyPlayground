@@ -76,3 +76,12 @@ function Base.:/(t1::Trapezodial, t2::Trapezodial)::Trapezodial
         t1.d / t2.a
     )
 end 
+
+function euclidean(t1::Trapezodial, t2::Trapezodial)::Float64 
+    return sqrt((1/4) * ((t1.a - t2.a)^2 + (t1.b - t2.b)^2 + (t1.c - t2.c)^2 + (t1.d - t2.d)^2))
+end 
+
+function euclidean(t1::Trapezodial)::Float64 
+    origin = Trapezodial(0.0, 0.0, 0.0, 0.0)
+    return euclidean(origin, t1)
+end 

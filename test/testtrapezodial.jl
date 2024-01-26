@@ -79,4 +79,13 @@
         @test result == Trapezodial(6, 32, 54, 90)
     end 
 
+    @testset "Euclidean distance" begin 
+        eps = 0.00001
+
+        t1 = Trapezodial(0, 0, 3, 4)
+
+        @test euclidean(t1, t1) == 0.0
+        @test isapprox(euclidean(t1), 2.5, atol = eps)
+    end 
+
 end 
