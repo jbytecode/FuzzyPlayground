@@ -1,6 +1,21 @@
 # FuzzyPlayground
 Fuzzy Playground / Sandbox
 
+### Installing 
+
+```julia
+(@v1.10) pkg> add https://github.com/jbytecode/FuzzyPlayground.git
+```
+
+or 
+
+```julia
+julia> using Pkg
+julia> Pkg.add(url = "https://github.com/jbytecode/FuzzyPlayground.git")
+```
+
+
+### Experimental Topsis
 
 ```julia
 
