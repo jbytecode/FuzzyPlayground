@@ -4,13 +4,6 @@ mutable struct Triangular <: FuzzyNumber
     c
 end 
 
-mutable struct Trapezodial <: FuzzyNumber
-    a 
-    b 
-    c 
-    d 
-end 
-
 function Base.:+(t1::Triangular, t2::Triangular)::Triangular
     return Triangular(
         t1.a + t2.a, 
