@@ -1,12 +1,12 @@
 mutable struct FuzzyTopsisResult
-    decmat::Any
-    normalized_decmat::Any
-    weighted_normalized_decmat::Any
-    bestideal::Any
-    worstideal::Any
-    sminus::Any
-    splus::Any
-    scores::Any
+    decmat::Matrix
+    normalized_decmat::Matrix
+    weighted_normalized_decmat::Matrix
+    bestideal::Vector
+    worstideal::Vector
+    sminus::Vector
+    splus::Vector
+    scores::Vector
 end
 
 
