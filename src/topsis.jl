@@ -9,7 +9,6 @@ mutable struct FuzzyTopsisResult
     scores::Any
 end
 
-function prepare_decmats() end
 
 function summarizecolumn(v::Vector{FuzzyType})::FuzzyType where {FuzzyType<:FuzzyNumber}
     fuzzytype = eltype(v)
@@ -38,12 +37,20 @@ function prepare_weights(
     return wresult
 end
 
+
 function fuzzydecmat(
-    weightlist::Vector{Vector{FuzzyNumber}},
-    decmatlist::Vector{Matrix{FuzzyNumber}},
-)
-
-
+    decmatlist::Vector{Matrix{FuzzyType}}
+)::Matrix{FuzzyType} where FuzzyType <: FuzzyNumber 
+    L = length(decmatlist)
+    n, p = size(decmatlist[1])
+    newdecmat = similar(decmatlist[1])
+    for i in 1:n 
+        for j in 1:p
+            v = map(x -> x[i, j], decmatlist)
+            newdecmat[i, j] = summarizecolumn(v)
+        end 
+    end 
+    return newdecmat 
 end
 
 function fuzzytopsis(

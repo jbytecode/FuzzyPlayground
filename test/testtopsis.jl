@@ -1,5 +1,35 @@
 @testset "Topsis" begin
 
+    @testset "Preparing decision matrix using multiple decision makers" begin 
+        # Two decision makers
+        # Two alternatives 
+        # Four criteria
+        dm1 = [
+            Triangular(3,5,7) Triangular(7,9,9) Triangular(1,3,5) Triangular(3,5,7);
+            Triangular(5,7,9) Triangular(5,7,9) Triangular(1,3,5) Triangular(1,3,5)
+        ]
+
+        dm2 = [
+            Triangular(3,5,7) Triangular(7,9,9) Triangular(3,5,7) Triangular(3,5,7);
+            Triangular(5,7,9) Triangular(7,9,9) Triangular(1,3,5) Triangular(1,3,5)
+        ]
+
+        decmat = fuzzydecmat([dm1, dm2])
+
+        expected = [
+            Triangular(3,5,7) Triangular(7,9,9) Triangular(1,4,7) Triangular(3,5,7);
+            Triangular(5,7,9) Triangular(5,8,9) Triangular(1,3,5) Triangular(1,3,5)
+        ]
+
+        n, p = decmat |> size 
+
+        for i in 1:n 
+            for j in 1:p
+                @test decmat[i, j] == expected[i, j]
+            end 
+        end 
+    end 
+
     @testset "Preparing weight vector using multiple decision makers" begin
         # These are decision makers' weight vectors
         # There are 2 decision makers.
