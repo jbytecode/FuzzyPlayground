@@ -9,11 +9,48 @@ mutable struct FuzzyTopsisResult
     scores::Any
 end
 
+function prepare_decmats() end
+
+function summarizecolumn(v::Vector{FuzzyType})::FuzzyType where {FuzzyType<:FuzzyNumber}
+    fuzzytype = eltype(v)
+    n = length(v)
+    p = arity(fuzzytype)
+    vals = zeros(Float64, p)
+    vals[1] = map(fnum -> fnum[1], v) |> minimum
+    vals[p] = map(fnum -> fnum[p], v) |> maximum
+    for i = 2:(p-1)
+        vals[i] = map(fnum -> fnum[i], v) |> Statistics.mean
+    end
+
+    return fuzzytype(vals...)
+end
+
+function prepare_weights(
+    weightlist::Vector{Vector{FuzzyType}},
+)::Vector{FuzzyType} where {FuzzyType<:FuzzyNumber}
+    wmat = mapreduce(permutedims, vcat, weightlist)
+    fuzzytype = eltype(wmat)
+    n, p = size(wmat)
+    wresult = Array{fuzzytype,1}(undef, p)
+    for i = 1:p
+        wresult[i] = summarizecolumn(wmat[:, i])
+    end
+    return wresult
+end
+
+function fuzzydecmat(
+    weightlist::Vector{Vector{FuzzyNumber}},
+    decmatlist::Vector{Matrix{FuzzyNumber}},
+)
+
+
+end
+
 function fuzzytopsis(
     decmat::Matrix{FuzzyType},
     w::Vector{FuzzyType},
     fns,
-)::FuzzyTopsisResult where FuzzyType <: FuzzyNumber
+)::FuzzyTopsisResult where {FuzzyType<:FuzzyNumber}
 
     n, p = size(decmat)
 

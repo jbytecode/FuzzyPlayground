@@ -1,5 +1,37 @@
 @testset "Topsis" begin
 
+    @testset "Preparing weight vector using multiple decision makers" begin
+        # These are decision makers' weight vectors
+        # There are 2 decision makers.
+        weights = [
+            [
+                Triangular(5, 7, 9),
+                Triangular(7, 9, 9),
+                Triangular(7, 9, 9),
+                Triangular(3, 5, 7),
+            ],
+            [
+                Triangular(3, 5, 7),
+                Triangular(5, 7, 9),
+                Triangular(5, 7, 9),
+                Triangular(1, 3, 5),
+            ],
+        ]
+
+        summarizedweights = prepare_weights(weights)
+
+        expected = [
+            Triangular(3.000, 6.000, 9.000),
+            Triangular(5.000, 8.000, 9.000),
+            Triangular(5.000, 8.000, 9.000),
+            Triangular(1.000, 4.000, 7.000),
+        ]
+
+        for i in eachindex(expected)
+            @test expected[i] == summarizedweights[i]
+        end
+    end
+
     @testset "Triangular: Alternative: 2, Criteria: 4" begin
 
         eps = 0.01
@@ -52,18 +84,29 @@
             end
         end
 
+
+
+        @test result.bestideal == [
+            Triangular(1.0, 1.0, 1.0),
+            Triangular(9.0, 9.0, 9.0),
+            Triangular(9.0, 9.0, 9.0),
+            Triangular(7.0, 7.0, 7.0),
+        ]
+
+        @test result.worstideal == [
+            Triangular(9.0, 9.0, 9.0),
+            Triangular(2.7777777777777777, 2.7777777777777777, 2.7777777777777777),
+            Triangular(0.7142857142857142, 0.7142857142857142, 0.7142857142857142),
+            Triangular(0.14285714285714285, 0.14285714285714285, 0.14285714285714285),
+        ]
+
+        @test result.sminus == [19.707994569421572, 17.256778769322487]
+
+        @test result.splus == [17.77549277635982, 17.53481366127578]
+
+
         @test isapprox(result.scores[1], 0.5257780416111583, atol = eps)
         @test isapprox(result.scores[2], 0.4960042804521248, atol = eps)
-
-        display(result.bestideal)
-
-        display(result.worstideal)
-
-        display(result.sminus)
-
-        display(result.splus)
-
-        display(result.scores)
 
     end
 end

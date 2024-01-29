@@ -84,8 +84,8 @@ function Base.one(::Type{Trapezodial})::Trapezodial
 end
 
 function Base.zeros(::Type{Trapezodial}, n::Int64)::Vector{Trapezodial}
-    return [zero(Trapezodial) for i in 1:n]
-end 
+    return [zero(Trapezodial) for i = 1:n]
+end
 
 
 function Base.iterate(t::Trapezodial, state = 1)
@@ -97,18 +97,18 @@ function Base.iterate(t::Trapezodial, state = 1)
         (t.c, state + 1)
     elseif state == 4
         (t.d, state + 1)
-    else 
+    else
         nothing
     end
 end
 
 function Base.first(t::Trapezodial)
-    return t.a 
-end 
+    return t.a
+end
 
 function Base.last(t::Trapezodial)
     return t.d
-end 
+end
 
 function euclidean(t1::Trapezodial, t2::Trapezodial)::Float64
     return sqrt(
@@ -122,18 +122,34 @@ function euclidean(t1::Trapezodial)::Float64
 end
 
 
-function observe(t::Trapezodial, x::XType)::Float64 where XType <: Real 
-    if x < t.a 
+function observe(t::Trapezodial, x::XType)::Float64 where {XType<:Real}
+    if x < t.a
         return zero(eltype(x))
-    elseif t.a <= x < t.b 
+    elseif t.a <= x < t.b
         return (x - t.a) / (t.b - t.a)
-    elseif t.b <= x < t.c 
+    elseif t.b <= x < t.c
         return one(eltype(x))
-    elseif t.c <= x < t.d 
+    elseif t.c <= x < t.d
         return (t.d - x) / (t.d - t.c)
     else
         return zero(eltype(x))
-    end 
-end 
+    end
+end
 
+function arity(::Type{Trapezodial})::Int64
+    return 4
+end
 
+function Base.getindex(t::Trapezodial, i::Int64)
+    if i == 1
+        return t.a
+    elseif i == 2
+        return t.b
+    elseif i == 3
+        return t.c
+    elseif i == 4
+        return t.d
+    else
+        error("Index out of bounds for Trapezodial: $i")
+    end
+end

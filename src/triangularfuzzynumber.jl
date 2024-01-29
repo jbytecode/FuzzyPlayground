@@ -3,7 +3,7 @@ mutable struct Triangular <: FuzzyNumber
     b::Real
     c::Real
     function Triangular(a, b, c)
-        @assert a <= b <= c 
+        @assert a <= b <= c
         new(a, b, c)
     end
 end
@@ -78,8 +78,8 @@ function Base.one(::Type{Triangular})::Triangular
 end
 
 function Base.zeros(::Type{Triangular}, n::Int64)::Vector{Triangular}
-    return [zero(Triangular) for i in 1:n]
-end 
+    return [zero(Triangular) for i = 1:n]
+end
 
 function Base.iterate(t::Triangular, state = 1)
     if state == 1
@@ -94,12 +94,12 @@ function Base.iterate(t::Triangular, state = 1)
 end
 
 function Base.first(t::Triangular)
-    return t.a 
-end 
+    return t.a
+end
 
 function Base.last(t::Triangular)
     return t.c
-end 
+end
 
 
 function euclidean(t1::Triangular, t2::Triangular)::Float64
@@ -112,15 +112,30 @@ function euclidean(t1::Triangular)::Float64
     return euclidean(origin, t1)
 end
 
-function observe(t::Triangular, x::XType)::Float64 where XType <: Real 
-    if x < t.a 
+function observe(t::Triangular, x::XType)::Float64 where {XType<:Real}
+    if x < t.a
         return zero(eltype(x))
-    elseif t.a <= x < t.b 
+    elseif t.a <= x < t.b
         return (x - t.a) / (t.b - t.a)
-    elseif t.b <= x < t.c 
+    elseif t.b <= x < t.c
         return (t.c - x) / (t.c - t.b)
     else
         return zero(eltype(x))
-    end 
-end 
+    end
+end
 
+function arity(::Type{Triangular})::Int64
+    return 3
+end
+
+function Base.getindex(t::Triangular, i::Int64)
+    if i == 1
+        return t.a
+    elseif i == 2
+        return t.b
+    elseif i == 3
+        return t.c
+    else
+        error("Index out of bounds for Triangular: $i")
+    end
+end

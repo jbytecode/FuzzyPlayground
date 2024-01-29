@@ -1,12 +1,12 @@
 @testset "Trapezodial Fuzzy Numbers" begin
 
-    @testset "Constructor" begin 
-        
+    @testset "Constructor" begin
+
         @test_throws AssertionError Trapezodial(5, 4, 3, 2)
         @test_throws AssertionError Trapezodial(5, 1, 3, 2)
         @test_throws AssertionError Trapezodial(5, 4, 6, 2)
 
-    end 
+    end
 
 
     @testset "Equality of Trapezodial" begin
@@ -96,7 +96,7 @@
         @test isapprox(euclidean(t1), 2.5, atol = eps)
     end
 
-    @testset "Observe" begin 
+    @testset "Observe" begin
         f = Trapezodial(1, 2, 5, 11)
 
         @test observe(f, 0) == 0
@@ -104,33 +104,33 @@
         @test observe(f, 4) == 1
         @test observe(f, 6) == 0.8333333333333334
         @test observe(f, 23412) == 0
-    end 
+    end
 
-    @testset "First" begin 
+    @testset "First" begin
         @test Trapezodial(1, 2, 3, 5) |> first == 1
         @test Trapezodial(2, 3, 4, 5) |> first == 2
-    end 
+    end
 
-    @testset "Last" begin 
+    @testset "Last" begin
         @test Trapezodial(1, 2, 3, 5) |> last == 5
         @test Trapezodial(2, 3, 4, 6) |> last == 6
-    end 
+    end
 
-    @testset "Zero" begin 
+    @testset "Zero" begin
         @test zero(Trapezodial) == Trapezodial(0, 0, 0, 0)
-    end 
+    end
 
-    @testset "One" begin 
+    @testset "One" begin
         @test one(Trapezodial) == Trapezodial(1, 1, 1, 1)
-    end 
+    end
 
-    @testset "Zeros" begin 
+    @testset "Zeros" begin
         v = zeros(Trapezodial, 10)
 
         @test v isa Vector{Trapezodial}
         @test length(v) == 10
         @test v[1] == zero(Trapezodial)
-    end 
+    end
 
 
 end
