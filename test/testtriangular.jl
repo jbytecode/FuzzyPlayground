@@ -130,4 +130,36 @@
         @test size(m) == (4, 5)
     end 
 
+    @testset "Get index, aka []" begin 
+
+        t = Triangular(1, 6, 15)
+
+        @test t[1] == 1
+        @test t[2] == 6
+        @test t[3] == 15
+    end 
+
+    @testset "Arity" begin 
+
+        @test arity(Triangular) == 3
+
+    end 
+
+
+    @testset "iterator" begin 
+
+        f = Triangular(4, 6, 10)
+
+        emptylist = Int64[]
+
+        for a in f 
+            push!(emptylist, a)
+        end 
+
+        @test emptylist[1] == 4 
+        @test emptylist[2] == 6 
+        @test emptylist[3] == 10 
+    end 
+
+
 end
