@@ -3,4 +3,5 @@ using Test
 
 include("testtriangular.jl")
 include("testtrapezodial.jl")
-include("testtopsis.jl")
+include("testtopsis1.jl")
+include("testtopsis2.jl")
