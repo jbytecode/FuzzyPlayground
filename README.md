@@ -110,3 +110,47 @@ julia> observe(f, 14)
 0.35294117647058826
 ```
 
+### Multiple Decision Makers 
+
+Determining the decision matrix
+
+```julia
+# Two decision makers
+# Two alternatives 
+# Four criteria
+dm1 = [
+    Triangular(3,5,7) Triangular(7,9,9) Triangular(1,3,5) Triangular(3,5,7);
+    Triangular(5,7,9) Triangular(5,7,9) Triangular(1,3,5) Triangular(1,3,5)
+]
+
+dm2 = [
+    Triangular(3,5,7) Triangular(7,9,9) Triangular(3,5,7) Triangular(3,5,7);
+    Triangular(5,7,9) Triangular(7,9,9) Triangular(1,3,5) Triangular(1,3,5)
+]
+
+decmat = fuzzydecmat([dm1, dm2])
+```
+
+Determining the aggregate weight vector
+
+
+```julia
+# These are decision makers' weight vectors
+# There are 2 decision makers.
+weights = [
+    [
+        Triangular(5, 7, 9),
+        Triangular(7, 9, 9),
+        Triangular(7, 9, 9),
+        Triangular(3, 5, 7),
+    ],
+    [
+        Triangular(3, 5, 7),
+        Triangular(5, 7, 9),
+        Triangular(5, 7, 9),
+        Triangular(1, 3, 5),
+    ],
+]
+
+summarizedweights = prepare_weights(weights)
+```
