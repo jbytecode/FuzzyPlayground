@@ -43,47 +43,6 @@ fns = [minimum, maximum, maximum, maximum]
 result = fuzzytopsis(decmat, w, fns)
 ```
 
-```julia
-julia> result.normalized_decmat
-2×4 Matrix{Triangular}:
- Triangular(0.428571, 0.6, 1.0)       Triangular(0.777778, 1.0, 1.0)       …  Triangular(0.428571, 0.714286, 1.0)
- Triangular(0.333333, 0.428571, 0.6)  Triangular(0.555556, 0.888889, 1.0)     Triangular(0.142857, 0.428571, 0.714286)
-
-julia> result.weighted_normalized_decmat
-2×4 Matrix{Triangular}:
- Triangular(1.28571, 3.6, 9.0)  Triangular(3.88889, 8.0, 9.0)      …  Triangular(0.428571, 2.85714, 7.0)
- Triangular(1.0, 2.57143, 5.4)  Triangular(2.77778, 7.11111, 9.0)     Triangular(0.142857, 1.71429, 5.0)
-
-ulia> result.bestideal
-4-element Vector{Triangular}:
- Triangular(1.0, 1.0, 1.0)
- Triangular(9.0, 9.0, 9.0)
- Triangular(9.0, 9.0, 9.0)
- Triangular(7.0, 7.0, 7.0)
-
-julia> result.worstideal
-4-element Vector{Triangular}:
- Triangular(9.0, 9.0, 9.0)
- Triangular(2.7777777777777777, 2.7777777777777777, 2.7777777777777777)
- Triangular(0.7142857142857142, 0.7142857142857142, 0.7142857142857142)
- Triangular(0.14285714285714285, 0.14285714285714285, 0.14285714285714285)
-
-julia> result.sminus
-2-element Vector{Float64}:
- 19.707994569421572
- 17.256778769322487
-
-julia> result.splus
-2-element Vector{Float64}:
- 17.77549277635982
- 17.53481366127578
-
-julia> result.scores
-2-element Vector{Float64}:
- 0.5257780416111583
- 0.4960042804521248
-
-```
 
 ### Evaluating Fuzzy Numbers:
 

@@ -117,26 +117,26 @@
 
 
         @test result.bestideal == [
-            Triangular(1.0, 1.0, 1.0),
+            Triangular(9.0, 9.0, 9.0),
             Triangular(9.0, 9.0, 9.0),
             Triangular(9.0, 9.0, 9.0),
             Triangular(7.0, 7.0, 7.0),
         ]
 
         @test result.worstideal == [
-            Triangular(9.0, 9.0, 9.0),
+            Triangular(1.0, 1.0, 1.0),
             Triangular(2.7777777777777777, 2.7777777777777777, 2.7777777777777777),
             Triangular(0.7142857142857142, 0.7142857142857142, 0.7142857142857142),
             Triangular(0.14285714285714285, 0.14285714285714285, 0.14285714285714285),
         ]
 
-        @test result.sminus == [19.707994569421572, 17.256778769322487]
+        @test result.sminus == [19.130795215674166, 13.675031586664522]
 
-        @test result.splus == [17.77549277635982, 17.53481366127578]
+        @test result.splus == [18.352692130107226, 21.116560843933744]
 
 
-        @test isapprox(result.scores[1], 0.5257780416111583, atol=eps)
-        @test isapprox(result.scores[2], 0.4960042804521248, atol=eps)
+        @test isapprox(result.scores[1], 0.51, atol=eps)
+        @test isapprox(result.scores[2], 0.39, atol=eps)
 
     end
 

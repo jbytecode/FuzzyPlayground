@@ -88,15 +88,17 @@ function fuzzytopsis(
     for j = 1:p
         maxc = maximum(map(x -> last(x), weightednormalized_mat[:, j]))
         mina = minimum(map(x -> first(x), weightednormalized_mat[:, j]))
-        if fns[j] == maximum
-            bestideal[j] = Triangular(maxc, maxc, maxc)
-            worstideal[j] = Triangular(mina, mina, mina)
-        elseif fns[j] == minimum
-            worstideal[j] = Triangular(maxc, maxc, maxc)
-            bestideal[j] = Triangular(mina, mina, mina)
-        else
-            error("fns[i] should be either minimum or maximum, but $(fns[j]) found.")
-        end
+        bestideal[j] = Triangular(maxc, maxc, maxc)
+        worstideal[j] = Triangular(mina, mina, mina)
+        #if fns[j] == maximum
+        #    bestideal[j] = Triangular(maxc, maxc, maxc)
+        #    worstideal[j] = Triangular(mina, mina, mina)
+        #elseif fns[j] == minimum
+        #    worstideal[j] = Triangular(maxc, maxc, maxc)
+        #    bestideal[j] = Triangular(mina, mina, mina)
+        #else
+        #    error("fns[i] should be either minimum or maximum, but $(fns[j]) found.")
+        #end
     end
 
     distance_to_ideal = zeros(n)

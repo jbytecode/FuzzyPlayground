@@ -139,3 +139,7 @@ function Base.getindex(t::Triangular, i::Int64)
         error("Index out of bounds for Triangular: $i")
     end
 end
+
+
+
+

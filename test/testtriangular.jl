@@ -115,6 +115,4 @@
         @test v[1] == zero(Triangular)
     end
 
-
-
 end
