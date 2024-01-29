@@ -153,3 +153,18 @@ function Base.getindex(t::Trapezodial, i::Int64)
         error("Index out of bounds for Trapezodial: $i")
     end
 end
+
+
+Base.rand(::Type{Trapezodial}) = Trapezodial(sort(rand(4))...)
+
+Base.rand(::Type{Trapezodial}, i::Int64)=[Trapezodial(sort(rand(4))...) for _ in 1:i]
+
+function Base.rand(::Type{Trapezodial}, i::Int64, j::Int64)
+    m = Array{Trapezodial, 2}(undef, i, j)
+    for a in 1:i
+        for b in 1:j 
+            m[a, b] = rand(Trapezodial)
+        end 
+    end 
+    return m
+end 

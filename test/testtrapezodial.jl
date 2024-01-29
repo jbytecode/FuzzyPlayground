@@ -133,4 +133,19 @@
     end
 
 
+    @testset "Random" begin 
+
+        fnum = rand(Trapezodial)
+        @test fnum.a <= fnum.b <= fnum.c <= fnum.d
+
+        v = rand(Trapezodial, 5)
+        @test length(v) == 5
+        @test v[1] isa Trapezodial
+
+        m = rand(Trapezodial, 4, 5)
+        @test m isa Matrix
+        @test m[1, 1] isa Trapezodial
+        @test size(m) == (4, 5)
+    end 
+
 end

@@ -141,5 +141,17 @@ function Base.getindex(t::Triangular, i::Int64)
 end
 
 
+Base.rand(::Type{Triangular}) = Triangular(sort(rand(3))...)
 
+Base.rand(::Type{Triangular}, i::Int64)=[Triangular(sort(rand(3))...) for _ in 1:i]
+
+function Base.rand(::Type{Triangular}, i::Int64, j::Int64)
+    m = Array{Triangular, 2}(undef, i, j)
+    for a in 1:i
+        for b in 1:j 
+            m[a, b] = rand(Triangular)
+        end 
+    end 
+    return m
+end 
 
