@@ -1,4 +1,4 @@
-mutable struct Trapezodial <: FuzzyNumber
+struct Trapezodial <: FuzzyNumber
     a::Real
     b::Real
     c::Real

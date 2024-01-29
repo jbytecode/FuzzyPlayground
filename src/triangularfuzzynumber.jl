@@ -1,4 +1,4 @@
-mutable struct Triangular <: FuzzyNumber
+struct Triangular <: FuzzyNumber
     a::Real
     b::Real
     c::Real
