@@ -86,10 +86,10 @@ function fuzzytopsis(
     worstideal = zeros(eltype(decmat), p)
 
     for j = 1:p
-        maxc = maximum(map(x -> last(x), weightednormalized_mat[:, j]))
-        mina = minimum(map(x -> first(x), weightednormalized_mat[:, j]))
-        bestideal[j] = Triangular(maxc, maxc, maxc)
-        worstideal[j] = Triangular(mina, mina, mina)
+        maxLast = maximum(map(x -> last(x), weightednormalized_mat[:, j]))
+        minFirst = minimum(map(x -> first(x), weightednormalized_mat[:, j]))
+        bestideal[j] = FuzzyType([maxLast for _ in 1:arity(FuzzyType)]...)
+        worstideal[j] = FuzzyType([minFirst for _ in 1:arity(FuzzyType)]...)
         #if fns[j] == maximum
         #    bestideal[j] = Triangular(maxc, maxc, maxc)
         #    worstideal[j] = Triangular(mina, mina, mina)
