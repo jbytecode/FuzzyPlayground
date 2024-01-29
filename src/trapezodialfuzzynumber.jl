@@ -9,6 +9,18 @@ struct Trapezodial <: FuzzyNumber
     end
 end
 
+Trapezodial(x) = Trapezodial(x, x, x, x)
+
+function Trapezodial(x::Vector{A})::Trapezodial where A <: Real 
+    return Trapezodial(
+        x[1],
+        x[2],
+        x[3],
+        x[4]
+    )
+end 
+
+
 function Base.:+(t1::Trapezodial, t2::Trapezodial)::Trapezodial
     return Trapezodial(t1.a + t2.a, t1.b + t2.b, t1.c + t2.c, t1.d + t2.d)
 end
@@ -112,7 +124,7 @@ end
 
 function euclidean(t1::Trapezodial, t2::Trapezodial)::Float64
     return sqrt(
-        (1 / 4) * ((t1.a - t2.a)^2 + (t1.b - t2.b)^2 + (t1.c - t2.c)^2 + (t1.d - t2.d)^2),
+        (1.0 / 4.0) * ((t1.a - t2.a)^2.0 + (t1.b - t2.b)^2.0 + (t1.c - t2.c)^2.0 + (t1.d - t2.d)^2.0),
     )
 end
 

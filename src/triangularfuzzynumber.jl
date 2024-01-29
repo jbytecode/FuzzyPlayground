@@ -8,6 +8,16 @@ struct Triangular <: FuzzyNumber
     end
 end
 
+Triangular(x) = Triangular(x, x, x)
+
+function Triangular(x::Vector{A})::Triangular where A <: Real 
+    return Triangular(
+        x[1],
+        x[2],
+        x[3]
+    )
+end 
+
 function Base.:+(t1::Triangular, t2::Triangular)::Triangular
     return Triangular(t1.a + t2.a, t1.b + t2.b, t1.c + t2.c)
 end
@@ -103,13 +113,12 @@ end
 
 
 function euclidean(t1::Triangular, t2::Triangular)::Float64
-    return sqrt((1 / 3) * ((t1.a - t2.a)^2 + (t1.b - t2.b)^2 + (t1.c - t2.c)^2))
+    return sqrt((1.0 / 3.0) * ((t1.a - t2.a)^2.0 + (t1.b - t2.b)^2.0 + (t1.c - t2.c)^2.0))
 end
 
 
 function euclidean(t1::Triangular)::Float64
-    origin = Triangular(0.0, 0.0, 0.0)
-    return euclidean(origin, t1)
+    return euclidean(Triangular(0.0, 0.0, 0.0), t1)
 end
 
 function observe(t::Triangular, x::XType)::Float64 where {XType<:Real}

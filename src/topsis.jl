@@ -1,4 +1,4 @@
-mutable struct FuzzyTopsisResult
+struct FuzzyTopsisResult
     decmat::Matrix
     normalized_decmat::Matrix
     weighted_normalized_decmat::Matrix
@@ -11,9 +11,7 @@ end
 
 
 function summarizecolumn(v::Vector{FuzzyType})::FuzzyType where {FuzzyType<:FuzzyNumber}
-    fuzzytype = eltype(v)
-    n = length(v)
-    p = arity(fuzzytype)
+    p = arity(FuzzyType)
     vals = zeros(Float64, p)
     vals[1] = map(fnum -> fnum[1], v) |> minimum
     vals[p] = map(fnum -> fnum[p], v) |> maximum
@@ -21,16 +19,16 @@ function summarizecolumn(v::Vector{FuzzyType})::FuzzyType where {FuzzyType<:Fuzz
         vals[i] = map(fnum -> fnum[i], v) |> Statistics.mean
     end
 
-    return fuzzytype(vals...)
+    return FuzzyType(vals)
 end
 
 function prepare_weights(
     weightlist::Vector{Vector{FuzzyType}},
 )::Vector{FuzzyType} where {FuzzyType<:FuzzyNumber}
     wmat = mapreduce(permutedims, vcat, weightlist)
-    fuzzytype = eltype(wmat)
-    n, p = size(wmat)
-    wresult = Array{fuzzytype,1}(undef, p)
+
+    _, p = size(wmat)
+    wresult = Array{FuzzyType, 1}(undef, p)
     for i = 1:p
         wresult[i] = summarizecolumn(wmat[:, i])
     end
@@ -79,22 +77,22 @@ function fuzzytopsis(
     end
 
 
-    bestideal = zeros(eltype(decmat), p)
-    worstideal = zeros(eltype(decmat), p)
+    bestideal = zeros(FuzzyType, p)
+    worstideal = zeros(FuzzyType, p)
 
 
     for j = 1:p
-        weightednormalized_mat[:, j] = w[j] .* normalized_mat[:, j]
-        maxLast = maximum(map(x -> last(x), weightednormalized_mat[:, j]))
-        minFirst = minimum(map(x -> first(x), weightednormalized_mat[:, j]))
-        bestideal[j] = FuzzyType([maxLast for _ in 1:arity(FuzzyType)]...)
-        worstideal[j] = FuzzyType([minFirst for _ in 1:arity(FuzzyType)]...)
+        weightednormalized_mat[:, j] .= w[j] .* normalized_mat[:, j]
+        maxLast = maximum(map(last, weightednormalized_mat[:, j]))
+        minFirst = minimum(map(first, weightednormalized_mat[:, j]))
+        bestideal[j] = FuzzyType(maxLast)
+        worstideal[j] = FuzzyType(minFirst)
     end
 
 
-    distance_to_ideal = zeros(n)
-    distance_to_worst = zeros(n)
-    scores = zeros(Float64, n)
+    distance_to_ideal = zeros(Float64, n)
+    distance_to_worst = zeros(Float64, n)
+    scores            = zeros(Float64, n)
 
     for i = 1:n
         distance_to_ideal[i] = euclidean.(weightednormalized_mat[i, :], bestideal) |> sum
