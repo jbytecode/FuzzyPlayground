@@ -1,4 +1,4 @@
-@testset "Trapezodial Fuzzy Numbers" begin
+@testset "Trapezodial Fuzzy Numbers" verbose = true begin
 
     @testset "Constructor" begin
 

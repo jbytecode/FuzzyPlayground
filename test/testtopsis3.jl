@@ -1,4 +1,4 @@
-@testset "Topsis Trapezodial Example - (Fatih ECER, (2007))" begin
+@testset "Topsis Trapezodial Example - (Fatih ECER, (2007))" verbose = true begin
 
     """
     Fatih, ECER. (2007). BULANIK ORTAMLARDA MAĞAZA KURULUŞ YERLERİNİN DEĞERLENDİRİLMESİ: 

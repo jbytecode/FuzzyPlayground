@@ -1,4 +1,4 @@
-@testset "Topsis - (Nihan, T. C. (2011))" begin
+@testset "Topsis - (Nihan, T. C. (2011))" verbose = true begin
 
     """
     References:

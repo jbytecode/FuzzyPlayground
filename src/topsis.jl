@@ -39,7 +39,6 @@ end
 function fuzzydecmat(
     decmatlist::Vector{Matrix{FuzzyType}}
 )::Matrix{FuzzyType} where FuzzyType <: FuzzyNumber 
-    L = length(decmatlist)
     n, p = size(decmatlist[1])
     newdecmat = similar(decmatlist[1])
     for i in 1:n 

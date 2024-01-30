@@ -1,4 +1,4 @@
-@testset "Triangular Fuzzy Numbers" begin
+@testset "Triangular Fuzzy Numbers" verbose = true begin
 
     @testset "Constructor" begin
 

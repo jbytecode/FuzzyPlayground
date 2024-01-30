@@ -1,6 +1,6 @@
 
 
-@testset "Topsis - (Kore, N. B., Ravi, K., & Patil, S. B. (2017))" begin
+@testset "Topsis - (Kore, N. B., Ravi, K., & Patil, S. B. (2017))" verbose = true begin
 
     """
     References:
