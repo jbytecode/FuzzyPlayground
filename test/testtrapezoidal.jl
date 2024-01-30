@@ -6,6 +6,8 @@
         @test_throws AssertionError Trapezoidal(5, 1, 3, 2)
         @test_throws AssertionError Trapezoidal(5, 4, 6, 2)
 
+        @test Trapezoidal([1,2,3,4]) == Trapezoidal(1,2,3,4)
+
     end
 
 
@@ -156,6 +158,8 @@
         @test t[2] == 6
         @test t[3] == 15
         @test t[4] == 24
+
+        @test_throws BoundsError t[5]
     end 
 
     @testset "Arity" begin 

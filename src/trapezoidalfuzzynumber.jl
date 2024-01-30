@@ -162,7 +162,7 @@ function Base.getindex(t::Trapezoidal , i::Int64)
     elseif i == 4
         return t.d
     else
-        error("Index out of bounds for Trapezoidal : $i")
+        throw(BoundsError("Index out of bounds for Trapezoidal : $i"))
     end
 end
 

@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/jbytecode/FuzzyPlayground/graph/badge.svg?token=HXKTKKOTI6)](https://codecov.io/gh/jbytecode/FuzzyPlayground)
+
 # FuzzyPlayground
 Fuzzy Playground / Sandbox
 

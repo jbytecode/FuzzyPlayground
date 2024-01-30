@@ -4,6 +4,8 @@
 
         @test_throws AssertionError Triangular(5, 4, 3)
 
+        @test Triangular([1,2,3]) == Triangular(1,2,3)
+
     end
 
     @testset "Equality of triangulars" begin
@@ -137,6 +139,8 @@
         @test t[1] == 1
         @test t[2] == 6
         @test t[3] == 15
+
+        @test_throws BoundsError t[4]
     end 
 
     @testset "Arity" begin 

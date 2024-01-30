@@ -145,7 +145,7 @@ function Base.getindex(t::Triangular, i::Int64)
     elseif i == 3
         return t.c
     else
-        error("Index out of bounds for Triangular: $i")
+        throw(BoundsError("Index out of bounds for Triangular: $i"))
     end
 end
 
