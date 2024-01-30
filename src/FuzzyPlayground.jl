@@ -1,18 +1,43 @@
 module FuzzyPlayground
 
+#=
+Abstract Type Definitions 
+=#
+abstract type FuzzyNumber end
+
+
+#=
+Imported packages
+=#
 import Statistics # :)
 
+#=
+Package exports to the out of the world
+=#
 export FuzzyNumber, Triangular, Trapezoidal 
+
 export euclidean
 export observe
 export arity
 export fuzzytopsis
-export fuzzydecmat, prepare_weights, prepare_decmats
+export fuzzydecmat, prepare_weights, fuzzydecmat
+
+export DefuzzificationMethod
+export WeightedMaximum
+export FirstMaximum
+export LastMaximum
+export MiddleMaximum
+export GravityCenter
+export GeometricMean
+export defuzzification
 
 
-include("fuzzynumber.jl")
+#=
+Inclusions
+=#
 include("triangularfuzzynumber.jl")
 include("trapezoidalfuzzynumber.jl")
+include("defuzzification.jl")
 include("topsis.jl")
 
 end
