@@ -1,13 +1,13 @@
 
 
-@testset "Topsis - (Kore, N. B., Ravi, K., & Patil, S. B. (2017))" verbose = true begin
+@testset "Topsis -(Kore, N. B., Ravi, K., & Patil, S. B.(2017))" verbose = true begin
 
     """
     References:
 
-    Kore, N. B., Ravi, K., & Patil, S. B. (2017). A simplified description of fuzzy TOPSIS 
+    Kore, N. B., Ravi, K., & Patil, S. B.(2017). A simplified description of fuzzy TOPSIS 
     method for multi criteria decision making. International Research Journal of Engineering
-    and Technology (IRJET), 4(5), 2047-2050.
+    and Technology(IRJET), 4(5), 2047-2050.
     """
 
     @testset "Preparing decision matrix using multiple decision makers" begin

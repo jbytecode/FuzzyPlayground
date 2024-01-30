@@ -1,9 +1,9 @@
-@testset "Topsis - (Nihan, T. C. (2011))" verbose = true begin
+@testset "Topsis -(Nihan, T. C.(2011))" verbose = true begin
 
     """
     References:
 
-    Nihan, T. C. (2011). Fuzzy Topsis Methods in Group Decision Making And An Application 
+    Nihan, T. C.(2011). Fuzzy Topsis Methods in Group Decision Making And An Application 
     For Bank Branch Location Selection. Journal of Engineering and Natural Sciences, 
     Sigma, 29, 11-24.
     """

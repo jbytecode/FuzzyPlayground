@@ -2,7 +2,7 @@ module FuzzyPlayground
 
 import Statistics # :)
 
-export FuzzyNumber, Triangular, Trapezodial
+export FuzzyNumber, Triangular, Trapezoidal 
 export euclidean
 export observe
 export arity
@@ -12,7 +12,7 @@ export fuzzydecmat, prepare_weights, prepare_decmats
 
 include("fuzzynumber.jl")
 include("triangularfuzzynumber.jl")
-include("trapezodialfuzzynumber.jl")
+include("trapezoidalfuzzynumber.jl")
 include("topsis.jl")
 
 end

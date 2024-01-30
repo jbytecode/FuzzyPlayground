@@ -127,7 +127,7 @@
         m = rand(Triangular, 4, 5)
         @test m isa Matrix
         @test m[1, 1] isa Triangular
-        @test size(m) == (4, 5)
+        @test size(m) ==(4, 5)
     end 
 
     @testset "Get index, aka []" begin 
