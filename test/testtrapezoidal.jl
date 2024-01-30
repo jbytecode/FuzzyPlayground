@@ -84,9 +84,9 @@
         t1 = Trapezoidal(1, 4, 6, 9)
         t2 = Trapezoidal(6, 8, 9, 10)
 
-        result = t1 * t2
+        result = t1 / t2
 
-        @test result == Trapezoidal(6, 32, 54, 90)
+        @test isapprox(result, Trapezoidal(0.1, 0.4444444444444444, 0.75, 1.5), atol = 0.001)
     end
 
     @testset "Euclidean distance" begin
