@@ -30,14 +30,16 @@ export MiddleMaximum
 export GravityCenter
 export GeometricMean
 export defuzzification
-
+export fuzzysaw
 
 #=
 Inclusions
 =#
 include("triangularfuzzynumber.jl")
 include("trapezoidalfuzzynumber.jl")
+include("groupdecision.jl")
 include("defuzzification.jl")
 include("topsis.jl")
+include("saw.jl")
 
 end
