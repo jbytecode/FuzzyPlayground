@@ -4,7 +4,7 @@
 
         @test_throws AssertionError Triangular(5, 4, 3)
 
-        @test Triangular([1,2,3]) == Triangular(1,2,3)
+        @test Triangular([1, 2, 3]) == Triangular(1, 2, 3)
 
     end
 
@@ -92,9 +92,9 @@
         @test iszero(observe(f, 10))
     end
 
-    @testset "Length" begin 
+    @testset "Length" begin
         @test length(Triangular) == 1
-    end 
+    end
 
     @testset "First" begin
         @test Triangular(1, 2, 3) |> first == 1
@@ -122,10 +122,10 @@
         @test v[1] == zero(Triangular)
     end
 
-    @testset "Random" begin 
+    @testset "Random" begin
 
         fnum = rand(Triangular)
-        @test fnum.a <= fnum.b <= fnum.c 
+        @test fnum.a <= fnum.b <= fnum.c
 
         v = rand(Triangular, 5)
         @test length(v) == 5
@@ -134,10 +134,10 @@
         m = rand(Triangular, 4, 5)
         @test m isa Matrix
         @test m[1, 1] isa Triangular
-        @test size(m) ==(4, 5)
-    end 
+        @test size(m) == (4, 5)
+    end
 
-    @testset "Get index, aka []" begin 
+    @testset "Get index, aka []" begin
 
         t = Triangular(1, 6, 15)
 
@@ -146,29 +146,29 @@
         @test t[3] == 15
 
         @test_throws BoundsError t[4]
-    end 
+    end
 
-    @testset "Arity" begin 
+    @testset "Arity" begin
 
         @test arity(Triangular) == 3
 
-    end 
+    end
 
 
-    @testset "iterator" begin 
+    @testset "iterator" begin
 
         f = Triangular(4, 6, 10)
 
         emptylist = Int64[]
 
-        for a in f 
+        for a in f
             push!(emptylist, a)
-        end 
+        end
 
-        @test emptylist[1] == 4 
-        @test emptylist[2] == 6 
-        @test emptylist[3] == 10 
-    end 
+        @test emptylist[1] == 4
+        @test emptylist[2] == 6
+        @test emptylist[3] == 10
+    end
 
 
 end

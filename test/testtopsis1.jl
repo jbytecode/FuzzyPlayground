@@ -15,26 +15,26 @@
         # Two alternatives 
         # Four criteria
         dm1 = [
-            Triangular(3, 5, 7) Triangular(7, 9, 9) Triangular(1, 3, 5) Triangular(3, 5, 7);
+            Triangular(3, 5, 7) Triangular(7, 9, 9) Triangular(1, 3, 5) Triangular(3, 5, 7)
             Triangular(5, 7, 9) Triangular(5, 7, 9) Triangular(1, 3, 5) Triangular(1, 3, 5)
         ]
 
         dm2 = [
-            Triangular(3, 5, 7) Triangular(7, 9, 9) Triangular(3, 5, 7) Triangular(3, 5, 7);
+            Triangular(3, 5, 7) Triangular(7, 9, 9) Triangular(3, 5, 7) Triangular(3, 5, 7)
             Triangular(5, 7, 9) Triangular(7, 9, 9) Triangular(1, 3, 5) Triangular(1, 3, 5)
         ]
 
         decmat = fuzzydecmat([dm1, dm2])
 
         expected = [
-            Triangular(3, 5, 7) Triangular(7, 9, 9) Triangular(1, 4, 7) Triangular(3, 5, 7);
+            Triangular(3, 5, 7) Triangular(7, 9, 9) Triangular(1, 4, 7) Triangular(3, 5, 7)
             Triangular(5, 7, 9) Triangular(5, 8, 9) Triangular(1, 3, 5) Triangular(1, 3, 5)
         ]
 
         n, p = decmat |> size
 
-        for i in 1:n
-            for j in 1:p
+        for i = 1:n
+            for j = 1:p
                 @test decmat[i, j] == expected[i, j]
             end
         end
@@ -104,7 +104,7 @@
                 @test isapprox(
                     result.normalized_decmat[i, j],
                     expected_normalized_mat[i, j],
-                    atol=eps,
+                    atol = eps,
                 )
             end
         end
@@ -119,7 +119,7 @@
                 @test isapprox(
                     result.weighted_normalized_decmat[i, j],
                     expected_weighted_norm[i, j],
-                    atol=eps,
+                    atol = eps,
                 )
             end
         end
@@ -145,12 +145,8 @@
         @test result.splus == [18.352692130107226, 21.116560843933744]
 
 
-        @test isapprox(result.scores[1], 0.51, atol=eps)
-        @test isapprox(result.scores[2], 0.39, atol=eps)
+        @test isapprox(result.scores[1], 0.51, atol = eps)
+        @test isapprox(result.scores[2], 0.39, atol = eps)
 
     end
 end
-
-
-
-

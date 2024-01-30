@@ -9,7 +9,8 @@ end
 function fuzzysaw(
     decmat::Matrix{FuzzyType},
     w::Vector{FuzzyType},
-    fns; defuzzificationmethod::DefuzzificationMethod = WeightedMaximum(0.5)
+    fns;
+    defuzzificationmethod::DefuzzificationMethod = WeightedMaximum(0.5),
 )::FuzzySawResult where {FuzzyType<:FuzzyNumber}
 
     n, p = size(decmat)
@@ -37,17 +38,12 @@ function fuzzysaw(
 
     scores = zeros(Float64, n)
 
-    for i in 1:n 
+    for i = 1:n
         scores[i] = sum(weightednormalized_mat[i, :]) |> defuzzificationmethod
-    end 
+    end
 
 
-    result = FuzzySawResult(
-        decmat,
-        normalized_mat,
-        weightednormalized_mat,
-        scores
-    )
+    result = FuzzySawResult(decmat, normalized_mat, weightednormalized_mat, scores)
 
     return result
 end

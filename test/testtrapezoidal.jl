@@ -6,7 +6,7 @@
         @test_throws AssertionError Trapezoidal(5, 1, 3, 2)
         @test_throws AssertionError Trapezoidal(5, 4, 6, 2)
 
-        @test Trapezoidal([1,2,3,4]) == Trapezoidal(1,2,3,4)
+        @test Trapezoidal([1, 2, 3, 4]) == Trapezoidal(1, 2, 3, 4)
 
     end
 
@@ -86,7 +86,11 @@
 
         result = t1 / t2
 
-        @test isapprox(result, Trapezoidal(0.1, 0.4444444444444444, 0.75, 1.5), atol = 0.001)
+        @test isapprox(
+            result,
+            Trapezoidal(0.1, 0.4444444444444444, 0.75, 1.5),
+            atol = 0.001,
+        )
     end
 
     @testset "Euclidean distance" begin
@@ -109,9 +113,9 @@
         @test observe(f, 23412) == 0
     end
 
-    @testset "Length" begin 
+    @testset "Length" begin
         @test length(Trapezoidal) == 1
-    end 
+    end
 
     @testset "First" begin
         @test Trapezoidal(1, 2, 3, 5) |> first == 1
@@ -124,38 +128,38 @@
     end
 
     @testset "Zero" begin
-        @test zero(Trapezoidal ) == Trapezoidal(0, 0, 0, 0)
+        @test zero(Trapezoidal) == Trapezoidal(0, 0, 0, 0)
     end
 
     @testset "One" begin
-        @test one(Trapezoidal ) == Trapezoidal(1, 1, 1, 1)
+        @test one(Trapezoidal) == Trapezoidal(1, 1, 1, 1)
     end
 
     @testset "Zeros" begin
-        v = zeros(Trapezoidal , 10)
+        v = zeros(Trapezoidal, 10)
 
-        @test v isa Vector{Trapezoidal }
+        @test v isa Vector{Trapezoidal}
         @test length(v) == 10
-        @test v[1] == zero(Trapezoidal )
+        @test v[1] == zero(Trapezoidal)
     end
 
 
-    @testset "Random" begin 
+    @testset "Random" begin
 
-        fnum = rand(Trapezoidal )
+        fnum = rand(Trapezoidal)
         @test fnum.a <= fnum.b <= fnum.c <= fnum.d
 
-        v = rand(Trapezoidal , 5)
+        v = rand(Trapezoidal, 5)
         @test length(v) == 5
-        @test v[1] isa Trapezoidal 
+        @test v[1] isa Trapezoidal
 
-        m = rand(Trapezoidal , 4, 5)
+        m = rand(Trapezoidal, 4, 5)
         @test m isa Matrix
-        @test m[1, 1] isa Trapezoidal 
-        @test size(m) ==(4, 5)
-    end 
+        @test m[1, 1] isa Trapezoidal
+        @test size(m) == (4, 5)
+    end
 
-    @testset "Get index, aka []" begin 
+    @testset "Get index, aka []" begin
 
         t = Trapezoidal(1, 6, 15, 24)
 
@@ -165,29 +169,29 @@
         @test t[4] == 24
 
         @test_throws BoundsError t[5]
-    end 
+    end
 
-    @testset "Arity" begin 
+    @testset "Arity" begin
 
-        @test arity(Trapezoidal ) == 4
-        
-    end 
+        @test arity(Trapezoidal) == 4
+
+    end
 
 
-    @testset "iterator" begin 
+    @testset "iterator" begin
 
         f = Trapezoidal(4, 6, 10, 17)
 
         emptylist = Int64[]
 
-        for a in f 
+        for a in f
             push!(emptylist, a)
-        end 
+        end
 
-        @test emptylist[1] == 4 
-        @test emptylist[2] == 6 
-        @test emptylist[3] == 10 
+        @test emptylist[1] == 4
+        @test emptylist[2] == 6
+        @test emptylist[3] == 10
         @test emptylist[4] == 17
-    end 
+    end
 
 end

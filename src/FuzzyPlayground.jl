@@ -14,7 +14,7 @@ import Statistics # :)
 #=
 Package exports to the out of the world
 =#
-export FuzzyNumber, Triangular, Trapezoidal 
+export FuzzyNumber, Triangular, Trapezoidal
 
 export euclidean
 export observe

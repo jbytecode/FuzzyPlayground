@@ -10,13 +10,9 @@ end
 
 Triangular(x) = Triangular(x, x, x)
 
-function Triangular(x::Vector{A})::Triangular where A <: Real 
-    return Triangular(
-        x[1],
-        x[2],
-        x[3]
-    )
-end 
+function Triangular(x::Vector{A})::Triangular where {A<:Real}
+    return Triangular(x[1], x[2], x[3])
+end
 
 function Base.:+(t1::Triangular, t2::Triangular)::Triangular
     return Triangular(t1.a + t2.a, t1.b + t2.b, t1.c + t2.c)
@@ -33,7 +29,7 @@ end
 
 
 function Base.isequal(t1::Triangular, t2::Triangular)::Bool
-    return(t1.a == t2.a) &&(t1.b == t2.b) &&(t1.c == t2.c)
+    return (t1.a == t2.a) && (t1.b == t2.b) && (t1.c == t2.c)
 end
 
 
@@ -66,7 +62,7 @@ function Base.:/(alpha::T, t1::Triangular) where {T<:Real}
 end
 
 function Base.isapprox(t1::Triangular, t2::Triangular; atol::Float64)
-    return(
+    return (
         isapprox(t1.a, t2.a, atol = atol) &&
         isapprox(t1.b, t2.b, atol = atol) &&
         isapprox(t1.c, t2.c, atol = atol)
@@ -93,11 +89,11 @@ end
 
 function Base.iterate(t::Triangular, state = 1)
     if state == 1
-       (t.a, state + 1)
+        (t.a, state + 1)
     elseif state == 2
-       (t.b, state + 1)
+        (t.b, state + 1)
     elseif state == 3
-       (t.c, state + 1)
+        (t.c, state + 1)
     else
         nothing
     end
@@ -113,7 +109,7 @@ end
 
 
 function euclidean(t1::Triangular, t2::Triangular)::Float64
-    return sqrt((1.0 / 3.0) *((t1.a - t2.a)^2.0 +(t1.b - t2.b)^2.0 +(t1.c - t2.c)^2.0))
+    return sqrt((1.0 / 3.0) * ((t1.a - t2.a)^2.0 + (t1.b - t2.b)^2.0 + (t1.c - t2.c)^2.0))
 end
 
 
@@ -125,9 +121,9 @@ function observe(t::Triangular, x::XType)::Float64 where {XType<:Real}
     if x < t.a
         return zero(eltype(x))
     elseif t.a <= x < t.b
-        return(x - t.a) /(t.b - t.a)
+        return (x - t.a) / (t.b - t.a)
     elseif t.b <= x < t.c
-        return(t.c - x) /(t.c - t.b)
+        return (t.c - x) / (t.c - t.b)
     else
         return zero(eltype(x))
     end
@@ -152,15 +148,14 @@ end
 
 Base.rand(::Type{Triangular}) = Triangular(sort(rand(3))...)
 
-Base.rand(::Type{Triangular}, i::Int64)=[Triangular(sort(rand(3))...) for _ in 1:i]
+Base.rand(::Type{Triangular}, i::Int64) = [Triangular(sort(rand(3))...) for _ = 1:i]
 
 function Base.rand(::Type{Triangular}, i::Int64, j::Int64)
-    m = Array{Triangular, 2}(undef, i, j)
-    for a in 1:i
-        for b in 1:j 
+    m = Array{Triangular,2}(undef, i, j)
+    for a = 1:i
+        for b = 1:j
             m[a, b] = rand(Triangular)
-        end 
-    end 
+        end
+    end
     return m
-end 
-
+end

@@ -51,12 +51,12 @@ function fuzzytopsis(
 
     distance_to_ideal = zeros(Float64, n)
     distance_to_worst = zeros(Float64, n)
-    scores            = zeros(Float64, n)
+    scores = zeros(Float64, n)
 
     for i = 1:n
         distance_to_ideal[i] = euclidean.(weightednormalized_mat[i, :], bestideal) |> sum
         distance_to_worst[i] = euclidean.(weightednormalized_mat[i, :], worstideal) |> sum
-        scores[i] = distance_to_worst[i] /(distance_to_worst[i] + distance_to_ideal[i])
+        scores[i] = distance_to_worst[i] / (distance_to_worst[i] + distance_to_ideal[i])
     end
 
     result = FuzzyTopsisResult(

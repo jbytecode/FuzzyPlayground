@@ -16,7 +16,7 @@ function prepare_weights(
     wmat = mapreduce(permutedims, vcat, weightlist)
 
     _, p = size(wmat)
-    wresult = Array{FuzzyType, 1}(undef, p)
+    wresult = Array{FuzzyType,1}(undef, p)
     for i = 1:p
         wresult[i] = summarizecolumn(wmat[:, i])
     end
@@ -25,15 +25,15 @@ end
 
 
 function fuzzydecmat(
-    decmatlist::Vector{Matrix{FuzzyType}}
-)::Matrix{FuzzyType} where FuzzyType <: FuzzyNumber 
+    decmatlist::Vector{Matrix{FuzzyType}},
+)::Matrix{FuzzyType} where {FuzzyType<:FuzzyNumber}
     n, p = size(decmatlist[1])
     newdecmat = similar(decmatlist[1])
-    for i in 1:n 
-        for j in 1:p
+    for i = 1:n
+        for j = 1:p
             v = map(x -> x[i, j], decmatlist)
             newdecmat[i, j] = summarizecolumn(v)
-        end 
-    end 
-    return newdecmat 
+        end
+    end
+    return newdecmat
 end
