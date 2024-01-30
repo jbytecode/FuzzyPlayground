@@ -39,7 +39,7 @@ function fuzzysaw(
     scores = zeros(Float64, n)
 
     for i = 1:n
-        scores[i] = sum(weightednormalized_mat[i, :]) |> defuzzificationmethod
+        scores[i] = sum(weightednormalized_mat[i, :]) |> x -> defuzzification(x, defuzzificationmethod)
     end
 
 
