@@ -35,4 +35,12 @@
 
         @test defuzzification(Trapezoidal(1, 1, 1, 1), GeometricMean()) == 1
     end
+
+    @testset "Triangular" begin 
+        t1 = Trapezoidal(1, 50, 50, 100)
+        t2 = Triangular(1,50,100)
+
+		@test defuzzification(t1, GeometricMean()) == defuzzification(t2, GeometricMean())
+
+    end 
 end

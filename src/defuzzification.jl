@@ -21,6 +21,16 @@ struct GravityCenter <: DefuzzificationMethod end
 
 struct GeometricMean <: DefuzzificationMethod end
 
+struct Centroid <: DefuzzificationMethod end 
+
+#=
+	Convert Triangular(a,b,c) to Trapezoidal(a, b, b, c)
+	and continue with the methods implemented for Trapezoidal
+=#
+function defuzzification(t::Triangular, method::T) where T <: DefuzzificationMethod
+	defuzzification(Trapezoidal(t.a, t.b, t.b, t.c), method)
+end 
+
 
 function defuzzification(t::Trapezoidal, method::WeightedMaximum)
 	@assert 0 <= method.lambda <= 1
