@@ -86,10 +86,15 @@
     @testset "Observe" begin
         f = Triangular(1, 2, 5)
 
-        @test observe(f, 0) == 0
+        @test iszero(observe(f, 0))
         @test observe(f, 1.5) == 0.5
         @test observe(f, 4) == 0.3333333333333333
+        @test iszero(observe(f, 10))
     end
+
+    @testset "Length" begin 
+        @test length(Triangular) == 1
+    end 
 
     @testset "First" begin
         @test Triangular(1, 2, 3) |> first == 1

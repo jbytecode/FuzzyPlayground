@@ -81,7 +81,7 @@ function Base.isapprox(t1::Trapezoidal , t2::Trapezoidal ; atol::Float64)
     )
 end
 
-function Base.length(::Trapezoidal )::Int64
+function Base.length(::Type{Trapezoidal})::Int64
     return 1
 end
 

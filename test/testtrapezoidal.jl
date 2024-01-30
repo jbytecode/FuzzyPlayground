@@ -102,11 +102,16 @@
         f = Trapezoidal(1, 2, 5, 11)
 
         @test observe(f, 0) == 0
+        @test observe(f, 1.5) == 0.5
         @test observe(f, 3) == 1
         @test observe(f, 4) == 1
         @test observe(f, 6) == 0.8333333333333334
         @test observe(f, 23412) == 0
     end
+
+    @testset "Length" begin 
+        @test length(Trapezoidal) == 1
+    end 
 
     @testset "First" begin
         @test Trapezoidal(1, 2, 3, 5) |> first == 1

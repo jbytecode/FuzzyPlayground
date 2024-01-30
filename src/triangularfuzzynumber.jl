@@ -73,7 +73,7 @@ function Base.isapprox(t1::Triangular, t2::Triangular; atol::Float64)
     )
 end
 
-function Base.length(::Triangular)::Int64
+function Base.length(::Type{Triangular})::Int64
     return 1
 end
 
