@@ -76,8 +76,8 @@ function fuzzycocoso(
     weightednormalized_mat = similar(decmat)
 
     for j = 1:p
-        maxc = map(last, decmat[:]) |> maximum 
-        mina = map(first, decmat[:]) |> minimum 
+        maxc = map(last, decmat[:, j]) |> maximum 
+        mina = map(first, decmat[:, j]) |> minimum 
         for i = 1:n
             if fns[j] == maximum
                 a = (decmat[i, j].a - mina)/(maxc - mina)
@@ -89,9 +89,6 @@ function fuzzycocoso(
                 b = (maxc - decmat[i, j].b)/(maxc - mina)
                 c = (maxc - decmat[i, j].a)/(maxc - mina)
                 normalized_mat[i, j] = Triangular(a, b, c)
-                # normalized_mat[:, j] = (maxc - c)/(maxc - mina)
-                # normalized_mat[:, j] = (maxc - b)/(maxc - mina)
-                # normalized_mat[:, j] = (maxc - a)/(maxc - mina)
             else
                 error("fns[i] should be either minimum or maximum, but $(fns[j]) found.")
             end
@@ -119,8 +116,7 @@ function fuzzycocoso(
         S[i] = sum(weightednormalized_mat[i, :])
     end 
     
-    scoreTable = [S P]
-
+    # scoreTable = [S P]
     # kA = (S .+ P) ./ sum(scoreTable)
     kA = calculate_ka(S, P)
 
