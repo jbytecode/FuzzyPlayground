@@ -5,6 +5,25 @@ struct FuzzyCocosoResult
     scores::Vector
 end
 
+function calculate_ka(S::Vector{Triangular}, P::Vector{Triangular})::Vector{Triangular}
+    n = length(S)
+    result = Array{Triangular, 1}(undef, n)
+    allpa = map(x->x.a, P)
+    allpb = map(x->x.b, P)
+    allpc = map(x->x.c, P)
+    allsa = map(x->x.a, S)
+    allsb = map(x->x.b, S)
+    allsc = map(x->x.c, S)
+    for i in 1:n
+        result[i] = Triangular(
+            (P[i].a + S[i].a) / sum(allpc .+ allsc),
+            (P[i].b + S[i].b) / sum(allpb .+ allsb),
+            (P[i].c + S[i].c) / sum(allpa .+ allsa)
+        )
+    end 
+    return result
+end 
+
 function calculate_kb(S::Vector{Triangular}, P::Vector{Triangular})::Vector{Triangular}
     n = length(S)
     result = Array{Triangular, 1}(undef, n)
@@ -89,7 +108,8 @@ function fuzzycocoso(
     
     scoreTable = [S P]
 
-    kA = (S .+ P) ./ sum(scoreTable)
+    # kA = (S .+ P) ./ sum(scoreTable)
+    kA = calculate_ka(S, P)
 
     #kB = (S ./ minimum(S)) .+ (P ./ minimum(P))
     kB = calculate_kb(S, P)
