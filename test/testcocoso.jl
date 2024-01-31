@@ -1,5 +1,6 @@
 @testset "example" begin 
     
+    atol = 0.01
     decmat = [
         Triangular(0.6253, 0.9168, 1.0000)  Triangular(0.3625, 0.4465, 0.5835)  Triangular(0.5835, 0.8335, 1.0000)  Triangular(0.6253, 0.9168, 1.0000) Triangular(0.4500, 0.5835, 0.8335)  Triangular(0.4750, 0.6253, 0.9168)   Triangular(0.6670, 1.0000, 1.0000);
         Triangular(0.4750, 0.6253, 0.9168)  Triangular(0.3625, 0.4465, 0.5835)  Triangular(0.4083, 0.5168, 0.7085)  Triangular(0.4750, 0.6253, 0.9168) Triangular(0.3095, 0.3665, 0.4500)  Triangular(0.6253, 0.9168, 1.0000)   Triangular(0.2520, 0.2888, 0.3380);
@@ -19,8 +20,13 @@
 
     fns = [minimum, maximum, minimum, maximum, maximum, maximum, maximum]
 
+   
+
+    n, p = size(decmat)
+
     result = fuzzycocoso(decmat, w, fns)
 
+    
     @info result.scores
 end 
 
