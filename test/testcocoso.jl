@@ -48,6 +48,7 @@
 	result = fuzzycocoso(decmat, w, fns)
 
 	@info result.scores
+	display(hcat(expectedP, result.P))
 
 	@testset "Normalized Decision Matrix" begin
 		@test isapprox(result.normalized_decmat[1, 1], Triangular(0.0000, 0.1080, 0.4861), atol = atol)

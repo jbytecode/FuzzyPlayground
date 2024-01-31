@@ -32,6 +32,7 @@ export GeometricMean
 export defuzzification
 export fuzzysaw
 export fuzzycocoso
+export loadfuzzydata
 
 #=
 Inclusions
@@ -43,5 +44,6 @@ include("defuzzification.jl")
 include("topsis.jl")
 include("saw.jl")
 include("cocoso.jl")
+include("dataloader.jl")
 
 end
