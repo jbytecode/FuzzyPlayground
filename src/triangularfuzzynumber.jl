@@ -159,3 +159,8 @@ function Base.rand(::Type{Triangular}, i::Int64, j::Int64)
     end
     return m
 end
+
+function Base.:^(t1::Triangular, t2::Triangular)::Triangular
+    @assert (0 <= t1.a <= 1) && (0 <= t1.b <= 1) && (0 <= t1.c <= 1)
+    return Triangular(t1.a^t2.c, t1.b^t2.b, t1.c^t2.a)
+end 

@@ -171,4 +171,21 @@
     end
 
 
+    @testset "Power" begin 
+        t1 = Triangular(0.1, 0.2, 0.3)
+        w1 = Triangular(2, 3, 4)
+
+        result1 = t1^w1
+
+        @test result1 == Triangular(0.1^4, 0.2^3, 0.3^2)
+
+        t2 = Triangular(0.3, 0.4, 0.6)
+        w2 = Triangular(2, 3, 4)
+
+        result2 = t2^w2
+
+        @test result2 == Triangular(0.3^4, 0.4^3, 0.6^2)
+    end 
+
+
 end

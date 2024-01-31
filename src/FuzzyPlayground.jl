@@ -31,6 +31,7 @@ export GravityCenter
 export GeometricMean
 export defuzzification
 export fuzzysaw
+export fuzzycocoso
 
 #=
 Inclusions
@@ -41,5 +42,6 @@ include("groupdecision.jl")
 include("defuzzification.jl")
 include("topsis.jl")
 include("saw.jl")
+include("cocoso.jl")
 
 end
