@@ -2,6 +2,7 @@ struct FuzzyCocosoResult
     decmat::Matrix
     normalized_decmat::Matrix
     weighted_normalized_decmat::Matrix
+    scoremat::Matrix
     S::Vector 
     P::Vector
     scores::Vector
@@ -138,6 +139,7 @@ function fuzzycocoso(
         decmat,
         normalized_mat,
         weightednormalized_mat,
+        scoreMat,
         S,
         P,
         scores
