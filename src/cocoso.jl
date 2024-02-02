@@ -107,7 +107,7 @@ function fuzzycocoso(
                 c = (maxc - decmat[i, j].a) / (maxc - mina)
                 normalized_mat[i, j] = Triangular(a, b, c)
             else
-                error("fns[i] should be either minimum or maximum, but $(fns[j]) found.")
+                throw(UndefinedDirectionException("fns[i] should be either minimum or maximum, but $(fns[j]) found."))
             end
         end
     end

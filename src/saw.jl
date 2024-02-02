@@ -28,7 +28,7 @@ function fuzzysaw(
             colmin = minimum(avalues)
             normalized_mat[:, j] = colmin ./ decmat[:, j]
         else
-            error("fns[i] should be either minimum or maximum, but $(fns[j]) found.")
+            throw(UndefinedDirectionException("fns[i] should be either minimum or maximum, but $(fns[j]) found."))
         end
     end
 

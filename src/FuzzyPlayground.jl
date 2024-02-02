@@ -5,6 +5,13 @@ Abstract Type Definitions
 =#
 abstract type FuzzyNumber end
 
+#=
+Custom Errors
+=#
+struct UndefinedDirectionException <: Exception 
+    msg::String
+end 
+
 
 #=
 Imported packages
@@ -15,6 +22,9 @@ import DelimitedFiles
 #=
 Package exports to the out of the world
 =#
+
+export UndefinedDirectionException
+
 export FuzzyNumber, Triangular, Trapezoidal
 
 export euclidean
