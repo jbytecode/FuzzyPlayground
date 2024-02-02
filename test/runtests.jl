@@ -1,6 +1,7 @@
 using FuzzyPlayground
 using Test
 
+include("testdataloader.jl")
 include("testdefuzzification.jl")
 include("testtriangular.jl")
 include("testtrapezoidal.jl")

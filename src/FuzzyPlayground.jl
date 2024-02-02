@@ -10,6 +10,7 @@ abstract type FuzzyNumber end
 Imported packages
 =#
 import Statistics # :)
+import DelimitedFiles
 
 #=
 Package exports to the out of the world
