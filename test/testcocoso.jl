@@ -1,4 +1,10 @@
-@testset "example" begin
+@testset "Pamukkale - Master Thesis Example" begin
+
+	"""
+	Reference: 
+	Yenilmezel Alıcı, S. (2023). Bulanık çok kriterli karar verme yöntemleri ile bir işletme 
+	için insan kaynakları yönetimi uygulaması seçimi (Master's thesis). Pamukkale Üniversitesi
+	"""
 
 	atol = 0.001
 
@@ -35,11 +41,19 @@
 		Triangular(3.6526, 6.0029, 6.1911),
 	]
 
+	# Possibly incorrect scores
+	# expectedScores = [
+	# 	2.7571,
+	# 	2.1085,
+	# 	2.7728,
+	# 	2.3190,
+	# ]
+
 	expectedScores = [
-		2.7571,
-		2.1085,
-		2.7728,
-		2.3190,
+		5.8677,
+		4.5005,
+		5.7084,
+		5.0189
 	]
 
 
@@ -47,8 +61,6 @@
 
 	result = fuzzycocoso(decmat, w, fns)
 
-	@info result.scores
-	display(hcat(expectedP, result.P))
 
 	@testset "Normalized Decision Matrix" begin
 		@test isapprox(result.normalized_decmat[1, 1], Triangular(0.0000, 0.1080, 0.4861), atol = atol)
@@ -118,15 +130,19 @@
 		#@test isapprox(result.scoremat[1, 7], Triangular(0.9290, 1.0000, 1.0000), atol = atol)
     end 
 
-    println(result.P)
+    
     @testset "P values" begin
 		for i in 1:4
-			#@test isapprox(expectedP[i], result.P[i], atol = atol)
+			@test isapprox(expectedP[i], result.P[i], atol = atol)
 		end
 	end
+
+	@testset "Scores" begin 
+		for i in 1:4
+			@test isapprox(expectedScores[i], result.scores[i], atol = atol)
+		end 
+	end 
 end
-
-
 
 
 

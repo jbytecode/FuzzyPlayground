@@ -2,7 +2,6 @@ struct FuzzyCocosoResult
     decmat::Matrix
     normalized_decmat::Matrix
     weighted_normalized_decmat::Matrix
-    scoremat::Matrix
     S::Vector 
     P::Vector
     scores::Vector
@@ -71,6 +70,13 @@ function fuzzycocoso(
     lambda::Float64 = 0.5
 )::FuzzyCocosoResult where {FuzzyType<:FuzzyNumber}
 
+    # Suppose the type is triangular
+    # Trapezoidal is not supported yet 
+
+    @assert FuzzyType == Triangular
+
+    thearity = arity(FuzzyType)
+
     n, p = size(decmat)
 
     normalized_mat = similar(decmat)
@@ -97,15 +103,20 @@ function fuzzycocoso(
     end
 
 
-    scoreMat = similar(normalized_mat)
-    for i = 1:p
-        scoreMat[:, i] = normalized_mat[:, i] .^ w[i]
-    end
-
+    
     P = Vector{FuzzyType}(undef, n)
-    for i = 1:n
-        P[i] = sum(scoreMat[i, :])
-    end
+    for i in 1:n 
+        trips = Array{Float64, 1}(undef, arity(FuzzyType))
+        for h in 1:thearity
+            mysum = 0.0
+            for j in 1:p 
+                mysum += normalized_mat[i, j][h] ^ w[j][h]
+            end
+            trips[h] = mysum
+        end 
+        P[i] = FuzzyType(trips)
+    end 
+
 
 
     for j = 1:p
@@ -139,7 +150,6 @@ function fuzzycocoso(
         decmat,
         normalized_mat,
         weightednormalized_mat,
-        scoreMat,
         S,
         P,
         scores
