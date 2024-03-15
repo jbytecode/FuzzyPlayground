@@ -33,6 +33,11 @@ export arity
 export fuzzytopsis
 export fuzzydecmat, prepare_weights, fuzzydecmat
 
+export FuzzyCocosoResult
+export FuzzySawResult
+export FuzzyTopsisResult
+export FuzzyVikorResult
+
 export DefuzzificationMethod
 export WeightedMaximum
 export FirstMaximum
@@ -43,6 +48,7 @@ export GeometricMean
 export defuzzification
 export fuzzysaw
 export fuzzycocoso
+export fuzzyvikor
 export loadfuzzydata
 
 #=
@@ -56,5 +62,6 @@ include("topsis.jl")
 include("saw.jl")
 include("cocoso.jl")
 include("dataloader.jl")
+include("vikor.jl")
 
 end
