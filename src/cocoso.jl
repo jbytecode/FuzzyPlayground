@@ -124,7 +124,7 @@ function fuzzycocoso(
             end
             trips[h] = mysum
         end
-        P[i] = FuzzyType(trips)
+        P[i] = FuzzyType(sort(trips))
     end
 
 
