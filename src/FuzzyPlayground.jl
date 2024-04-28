@@ -49,6 +49,7 @@ export defuzzification
 export fuzzysaw
 export fuzzycocoso
 export fuzzyvikor
+export fuzzyedas
 export loadfuzzydata
 
 #=
@@ -63,5 +64,6 @@ include("saw.jl")
 include("cocoso.jl")
 include("dataloader.jl")
 include("vikor.jl")
+include("edas.jl")
 
 end
