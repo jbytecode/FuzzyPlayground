@@ -12,6 +12,11 @@ mutable struct FuzzyEdasResult
     sn::Vector
     sp_defuz::Vector
     sn_defuz::Vector
+    nsp::Vector
+    nsn::Vector
+    as::Vector
+    scores::Vector
+    ranks::Vector
 end
 
 
@@ -40,6 +45,11 @@ function fuzzyedas(decmat::Matrix{Triangular}, w::Vector{Triangular}, fns)
     sn = zeros(Triangular, n) 
     sp_defuz = zeros(Float64, n)
     sn_defuz = zeros(Float64, n)
+    nsp = zeros(Triangular, n)
+    nsn = zeros(Triangular, n)
+    as = zeros(Triangular, n)
+    scores = zeros(Float64, n)
+    ranks = zeros(Int64, n)
     
     for i in 1:n
         for j in 1:p
@@ -107,9 +117,27 @@ function fuzzyedas(decmat::Matrix{Triangular}, w::Vector{Triangular}, fns)
         sn_defuz[i] = (sn[i].a + sn[i].b + sn[i].c) / 3 
     end 
 
+    # NSP and NSN 
+    max_sp_defuz = maximum(sp_defuz)
+    max_sn_defuz = maximum(sn_defuz)
+    for i in 1:n 
+        nsp[i] = Triangular(sp[i].a / max_sp_defuz, sp[i].b/max_sp_defuz, sp[i].c/max_sp_defuz)
+        nsn[i] = Triangular(1 - (sn[i].c / max_sn_defuz), 1 - (sn[i].b / max_sn_defuz), 1 - (sn[i].a / max_sn_defuz))
+        as[i]  = Triangular(0.5*(nsp[i].a + nsn[i].a), 0.5*(nsp[i].b + nsn[i].b), 0.5*(nsp[i].c + nsn[i].c))
+    end 
+
+    # Scores are Defuz of AS 
+    for i in 1:n
+        scores[i] = (as[i].a + as[i].b + as[i].c) / 3
+    end 
+
+
+    ranks = (sortperm(scores, rev = true) |> invperm)
+
+    
 
     edasresult = FuzzyEdasResult(w, decmat, fns, defuzmatrix, avgdefuz, 
-                pda, nda, wpda, wnda,sp,sn, sp_defuz, sn_defuz)
-                
+                pda, nda, wpda, wnda,sp,sn, sp_defuz, sn_defuz, nsp, nsn, as, scores, ranks)
+
     return edasresult
 end
