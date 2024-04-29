@@ -45,6 +45,7 @@ export LastMaximum
 export MiddleMaximum
 export GravityCenter
 export GeometricMean
+export ArithmeticMean
 export defuzzification
 export fuzzysaw
 export fuzzycocoso

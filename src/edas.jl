@@ -24,11 +24,13 @@ function fuzzyedas(decmat::Matrix{Triangular}, w::Vector{Triangular}, fns)
 
     n, p = size(decmat)
 
+    defuzzification_function = x -> defuzzification(x, ArithmeticMean())
+
     defuzmatrix = zeros(Float64, n, p)
 
     for i = 1:n
         for j = 1:p
-            defuzmatrix[i, j] = (decmat[i, j].a + decmat[i, j].b + decmat[i, j].c) / 3
+            defuzmatrix[i, j] = defuzzification_function(decmat[i, j])
         end
     end
 
@@ -113,8 +115,8 @@ function fuzzyedas(decmat::Matrix{Triangular}, w::Vector{Triangular}, fns)
 
     # SP defuz and NP defuz
     for i in 1:n
-        sp_defuz[i] = (sp[i].a + sp[i].b + sp[i].c) / 3
-        sn_defuz[i] = (sn[i].a + sn[i].b + sn[i].c) / 3
+        sp_defuz[i] = defuzzification_function(sp[i])
+        sn_defuz[i] = defuzzification_function(sn[i])
     end
 
     # NSP and NSN 
@@ -128,16 +130,33 @@ function fuzzyedas(decmat::Matrix{Triangular}, w::Vector{Triangular}, fns)
 
     # Scores are Defuz of AS 
     for i in 1:n
-        scores[i] = (as[i].a + as[i].b + as[i].c) / 3
+        scores[i] = defuzzification_function(as[i])
     end
 
 
     ranks = (sortperm(scores, rev=true) |> invperm)
 
 
+    # FuzzyEdasResult construction
+    edasresult = FuzzyEdasResult(
+        w, 
+        decmat, 
+        fns, 
+        defuzmatrix, 
+        avgdefuz,
+        pda, 
+        nda, 
+        wpda, 
+        wnda, 
+        sp, 
+        sn, 
+        sp_defuz, 
+        sn_defuz, 
+        nsp, nsn, 
+        as, 
+        scores, 
+        ranks)
 
-    edasresult = FuzzyEdasResult(w, decmat, fns, defuzmatrix, avgdefuz,
-        pda, nda, wpda, wnda, sp, sn, sp_defuz, sn_defuz, nsp, nsn, as, scores, ranks)
 
     return edasresult
 end

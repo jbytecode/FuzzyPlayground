@@ -21,6 +21,8 @@ struct GravityCenter <: DefuzzificationMethod end
 
 struct GeometricMean <: DefuzzificationMethod end
 
+struct ArithmeticMean <: DefuzzificationMethod end
+
 #=
 	Convert Triangular(a,b,c) to Trapezoidal(a, b, b, c)
 	and continue with the methods implemented for Trapezoidal
@@ -65,4 +67,9 @@ function defuzzification(t::Trapezoidal, method::GeometricMean)
         denom = t.a + t.b - t.c - t.d
         return nom / denom
     end
+end
+
+
+function defuzzification(t::Triangular, method::ArithmeticMean)
+    return  (t.a + t.b + t.c ) / 3.0
 end
