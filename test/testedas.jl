@@ -68,6 +68,89 @@ Triangular(-0.855,	0.163,	1.146),
 Triangular(-0.492,	0.436,	1.326)    
 ]
 
+
+nda_col1 = Triangular[
+Triangular( 0.000,	0.000,	0.000),
+Triangular(-0.050,	0.406,	0.779),
+Triangular( 0.000,	0.000,	0.000),
+Triangular( 0.000,	0.000,	0.000),
+Triangular( 0.000,	0.000,	0.000)
+]
+
+nda_col4 = Triangular[
+Triangular( 0.000,	0.000,	0.000),
+Triangular(-0.328,	0.745,	1.764),
+Triangular(-0.874,	0.200,	1.218),
+Triangular( 0.000,	0.000,	0.000),
+Triangular( 0.000,	0.000,	0.000)
+]
+
+
+w_pda_col1 = Triangular[
+Triangular(-0.139,	0.082,	0.382),
+Triangular( 0.000,	0.000,	0.000),
+Triangular(-0.256,	0.007,	0.382),
+Triangular(-0.082,	0.157,	0.423),
+Triangular(-0.139,	0.119,	0.423)
+]
+
+w_pda_col4 = Triangular[
+Triangular(-0.381,	0.265,	1.238),
+Triangular( 0.000,	0.000,	0.000),
+Triangular( 0.000,	0.000,	0.000),
+Triangular(-0.485,	0.125,	1.070),
+Triangular(-0.279,	0.334,	1.238)
+]
+
+w_nda_col1 = Triangular[
+Triangular( 0.000,	0.000,	0.000),
+Triangular(-0.035,	0.365,	0.779),
+Triangular( 0.000,	0.000,	0.000),
+Triangular( 0.000,	0.000,	0.000),
+Triangular( 0.000,	0.000,	0.000)
+]
+
+w_nda_col4 = Triangular[
+Triangular( 0.000,	0.000,	0.000),
+Triangular(-0.186,	0.572,	1.645),
+Triangular(-0.495,	0.153,	1.136),
+Triangular( 0.000,	0.000,	0.000),
+Triangular( 0.000,	0.000,	0.000)
+]
+
+sp = Triangular[
+Triangular(-2.351,	1.229,	6.352),
+Triangular(-2.010,	1.180,	5.311),
+Triangular(-2.118,	0.682,	4.839),
+Triangular(-1.636,	0.667,	3.981),
+Triangular(-1.949,	1.007,	5.166)
+]
+
+sn = Triangular[
+Triangular(-2.046,	0.510,	3.867),
+Triangular(-1.691,	1.710,	6.461),
+Triangular(-2.847,	0.484,	5.195),
+Triangular(-2.700,	1.147,	6.572),
+Triangular(-2.436,	0.914,	5.539)
+]
+
+spdefuz = Float64[
+1.74,
+1.49,
+1.13,
+1.00,
+1.41
+]
+
+
+sndefuz = Float64[
+0.78,
+2.16,
+0.94,
+1.67,
+1.34
+]
+
 avgdefuz = Float64[8.04, 5.96, 7.07, 3.67, 2.56, 4.91, 5.22, 7.49, 5.24, 6.15, 6.64, 6.58, 3.42, 5.80]
 n, p = size(decmat)
 
@@ -80,14 +163,46 @@ result = fuzzyedas(decmat, weights, fns)
 
 @test isapprox(result.defuzmatrix, defuzmatrix, atol=epsilon)
 @test isapprox(result.avgdefuz, avgdefuz, atol=epsilon)
+
 for i in 1:n
     @test isapprox(result.pda[i,1], pda_col1[i], atol=epsilon)
 end 
 for i in 1:n
     @test isapprox(result.pda[i,4], pda_col4[i], atol=epsilon)
 end 
+for i in 1:n
+    @test isapprox(result.nda[i,1], nda_col1[i], atol=epsilon)
+end 
+for i in 1:n
+    @test isapprox(result.nda[i,4], nda_col4[i], atol=epsilon)
+end 
+
+for i in 1:n
+    @test isapprox(result.wpda[i,1], w_pda_col1[i], atol=epsilon)
+end 
+
+for i in 1:n
+    @test isapprox(result.wpda[i,4], w_pda_col4[i], atol=epsilon)
+end 
+
+for i in 1:n
+    @test isapprox(result.wnda[i,1], w_nda_col1[i], atol=epsilon)
+end 
+
+for i in 1:n
+    @test isapprox(result.wnda[i,4], w_nda_col4[i], atol=epsilon)
+end 
+
+for i in 1:n
+    @test isapprox(result.sp[i], sp[i], atol=epsilon)
+end 
+
+for i in 1:n
+    @test isapprox(result.sn[i], sn[i], atol=epsilon)
+end 
 
 
-
+@test isapprox(result.sp_defuz, spdefuz, atol=epsilon)
+@test isapprox(result.sn_defuz, sndefuz, atol=epsilon)
 
 end 
