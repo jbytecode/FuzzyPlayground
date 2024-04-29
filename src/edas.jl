@@ -3,11 +3,10 @@ mutable struct FuzzyEdasResult
     decmat::Matrix
     fns::Vector
     defuzmatrix::Matrix
-    pda::Matrix 
+    avgdefuz::Vector
+    pda::Matrix
 end
 
-
-mean(x) = sum(x) / length(x)
 
 function fuzzyedas(decmat::Matrix{Triangular}, w::Vector{Triangular}, fns)
 
@@ -17,7 +16,7 @@ function fuzzyedas(decmat::Matrix{Triangular}, w::Vector{Triangular}, fns)
 
     for i = 1:n
         for j = 1:p
-            defuzmatrix[i, j] = (decmat[i, j].a  + decmat[i, j].b + decmat[i, j].c) / 3
+            defuzmatrix[i, j] = (decmat[i, j].a + decmat[i, j].b + decmat[i, j].c) / 3
         end
     end
 
@@ -28,23 +27,38 @@ function fuzzyedas(decmat::Matrix{Triangular}, w::Vector{Triangular}, fns)
 
     pda = zeros(Triangular, n, p)
     nda = zeros(Triangular, n, p)
-    for i in 1:n 
+    
+    for i in 1:n
         for j in 1:p
-            amean = map(x -> x.a, decmat[:, j]) |> mean
-            bmean = map(x -> x.b, decmat[:, j]) |> mean
-            cmean = map(x -> x.c, decmat[:, j]) |> mean
-            if avgdefuz[j] > defuzmatrix[i, j] 
-                a = (decmat[i, j].a  - amean) / avgdefuz[j]
-                b = (decmat[i, j].b  - bmean) / avgdefuz[j]
-                c = (decmat[i, j].c  - cmean) / avgdefuz[j]
-                pda[i, j] = Triangular(sort([a, b, c]))
+            amean = map(x -> x.a, decmat[:, j]) |> Statistics.mean
+            bmean = map(x -> x.b, decmat[:, j]) |> Statistics.mean
+            cmean = map(x -> x.c, decmat[:, j]) |> Statistics.mean
+            if fns[j] == maximum
+                if avgdefuz[j] <= defuzmatrix[i, j]
+                    a = (decmat[i, j].a - cmean) / avgdefuz[j]
+                    b = (decmat[i, j].b - bmean) / avgdefuz[j]
+                    c = (decmat[i, j].c - amean) / avgdefuz[j]
+                    pda[i, j] = Triangular(sort([a, b, c]))
+                else
+                    pda[i, j] = Triangular(0, 0, 0)
+                end
+            elseif fns[j] == minimum 
+                if avgdefuz[j] <= defuzmatrix[i, j]
+                    pda[i, j] = Triangular(0, 0, 0)
+                else
+                    a = (amean - decmat[i, j].c) / avgdefuz[j]
+                    b = (bmean - decmat[i, j].b) / avgdefuz[j]
+                    c = (cmean - decmat[i, j].a) / avgdefuz[j]
+                    pda[i, j] = Triangular(sort([a, b, c]))
+                end
             else
-               pda[i, j] = Triangular(0, 0, 0)
+                error("Unsupported function: $(fns[p])")
             end
-        end 
-    end 
+        end
+    end
 
 
 
-    edasresult = FuzzyEdasResult(w, decmat, fns, defuzmatrix, pda)
-end 
+    edasresult = FuzzyEdasResult(w, decmat, fns, defuzmatrix, avgdefuz, pda)
+    return edasresult
+end

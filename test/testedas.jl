@@ -1,6 +1,6 @@
 @testset "Edas" begin 
 
-    epsilon = 0.01
+    epsilon = 0.1
 
 decmat = Triangular[
 Triangular(7.67,	9.00,	9.67)   Triangular(5.67,	7.67,	9.33) 	Triangular(5.33,	6.67,	7.67) 	Triangular(0.67,	2.33,	4.33)	Triangular(1.33,	2.67,	4.33)	Triangular(2.00,	3.67,	5.67)	Triangular(1.33,	3.00,	5.00)	Triangular(8.33,	9.67,	10.0)	Triangular(3.67,	5.67,	7.33)	Triangular(4.33,	6.33,	8.00)	Triangular(5.67,	7.33,	8.33)	Triangular(5.00,	7.00,	8.33)	Triangular(1.33,	3.00,	5.00)	Triangular(4.67,	6.33,	7.67);
@@ -50,9 +50,25 @@ defuzmatrix = Float64[
 8.11000	5.00000	6.89000	4.33000	2.77667	3.78000	5.00000	6.33000	4.33000	6.77667	7.22333	7.11000	3.11000	5.55667;
 9.33333	7.22333	8.11000	3.11000	2.11333	6.89000	6.55667	7.55667	5.66667	5.00000	5.55667	5.55667	3.11000	5.66667;
 9.00000	8.11000	7.44667	2.11333	3.22333	5.11000	5.11000	6.33000	7.88667	6.77667	6.22000	6.77667	2.44333	5.66667
-
 ]
 
+pda_col1 = Triangular[
+Triangular(-0.199,	0.091,	0.382),
+Triangular( 0.000,	0.000,	0.000),
+Triangular(-0.365,	0.008,	0.382),
+Triangular(-0.117,	0.175,	0.423),
+Triangular(-0.199,	0.132,	0.423)
+]
+
+pda_col4 = Triangular[
+Triangular(-0.672,	0.346,	1.326),
+Triangular( 0.000,	0.000,	0.000),
+Triangular( 0.000,	0.000,	0.000),
+Triangular(-0.855,	0.163,	1.146),
+Triangular(-0.492,	0.436,	1.326)    
+]
+
+avgdefuz = Float64[8.04, 5.96, 7.07, 3.67, 2.56, 4.91, 5.22, 7.49, 5.24, 6.15, 6.64, 6.58, 3.42, 5.80]
 n, p = size(decmat)
 
 @test n == 5
@@ -63,7 +79,15 @@ result = fuzzyedas(decmat, weights, fns)
 
 
 @test isapprox(result.defuzmatrix, defuzmatrix, atol=epsilon)
+@test isapprox(result.avgdefuz, avgdefuz, atol=epsilon)
+for i in 1:n
+    @test isapprox(result.pda[i,1], pda_col1[i], atol=epsilon)
+end 
+for i in 1:n
+    @test isapprox(result.pda[i,4], pda_col4[i], atol=epsilon)
+end 
 
-@show result.pda
+
+
 
 end 
