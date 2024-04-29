@@ -95,8 +95,8 @@ function fuzzyedas(decmat::Matrix{Triangular}, w::Vector{Triangular}, fns)
     # Weighted PDA and NDA
     for i in 1:n
         for j in 1:p
-            wpda[i, j] = Triangular(w[j].a * pda[i, j].a, w[j].b * pda[i, j].b, w[j].c * pda[i, j].c)
-            wnda[i, j] = Triangular(w[j].a * nda[i, j].a, w[j].b * nda[i, j].b, w[j].c * nda[i, j].c)
+            wpda[i, j] = Triangular(sort([w[j].a * pda[i, j].a, w[j].b * pda[i, j].b, w[j].c * pda[i, j].c]))
+            wnda[i, j] = Triangular(sort([w[j].a * nda[i, j].a, w[j].b * nda[i, j].b, w[j].c * nda[i, j].c]))
         end
     end
 
