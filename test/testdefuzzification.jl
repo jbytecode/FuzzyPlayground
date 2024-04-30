@@ -41,6 +41,10 @@
         t2 = Triangular(1, 50, 100)
 
         @test defuzzification(t1, GeometricMean()) == defuzzification(t2, GeometricMean())
-
     end
+
+    @testset "Aritmetic mean" begin 
+        t = Triangular(1, 50, 100)
+        @test defuzzification(t, ArithmeticMean()) == (1 + 50 + 100)/3
+    end 
 end

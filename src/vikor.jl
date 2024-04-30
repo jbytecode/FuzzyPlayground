@@ -55,7 +55,7 @@ function fuzzyvikor(decmat::Matrix{Triangular},
                 error("fns[i] should be either minimum or maximum")
             end
         end 
-        @info a, b, c
+        
         Si[i] = Triangular(a, b, c)        
     end 
 

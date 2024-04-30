@@ -1,4 +1,4 @@
-@testset "Edas" begin
+@testset "Edas" verbose = true begin
 
     epsilon = 0.1
 
