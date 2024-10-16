@@ -4,7 +4,7 @@ struct Trapezoidal <: FuzzyNumber
     c::Real
     d::Real
     function Trapezoidal(a, b, c, d)
-        @assert a <= b <= c <= d
+        #@assert a <= b <= c <= d
         new(a, b, c, d)
     end
 end

@@ -3,7 +3,7 @@ struct Triangular <: FuzzyNumber
     b::Real
     c::Real
     function Triangular(a, b, c)
-        @assert a <= b <= c
+        #@assert a <= b <= c
         new(a, b, c)
     end
 end
